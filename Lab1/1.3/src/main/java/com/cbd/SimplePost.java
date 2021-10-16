@@ -41,7 +41,6 @@ public class SimplePost {
         boardMap.getAllKeys().stream().forEach(System.out::println);
 
     }
-
 }
 
 class SimplePostSet {
