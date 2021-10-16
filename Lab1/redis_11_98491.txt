@@ -1,0 +1,88 @@
+ola
+redis-server
+ping
+ping ola
+ping 
+DBSIZE
+SET testkey hello
+Exists testkey
+type testkey
+keys *
+del testkey
+exists testekey
+type testekey
+scan 0
+scan 0 match "hell"
+set book:1 "Infinite Jest"
+get book:1
+set Book:1:ReadAction 1
+get Book:1:ReadAction
+incr book:1:ReadAction
+incr Book:1:ReadAction
+get Book:1:ReadAction
+INCRBY Book:1:ReadAction 20
+GET Book:1:ReadAction
+DECRBY Book:1:ReadAction 5
+GET Book:1:ReadAction
+GET Book:1 "Infinite Jest"
+MSET Person:2 "Kurt" Person:3 "Jane" Person:4 "Mark"
+MGET Person:2 Person:3 Person:4
+LPUSH Book:1:comment "This was a fun read"
+LRANGE Book:1:comment 0 -1
+LPUSH Book:1:comment "Way too long"
+LRANGE Book:1:comment 0 -1
+RPUSH Book:1:comment "Tennis anyone?"
+LRANGE Book:1:comment 0 -1
+LPOP Book:1:comment
+LRANGE Book:1:comment 0 -1
+RPOP Book:1:comment
+LRANGE Book:1:comment 0 -1
+RPUSH Organization:1:members Person:1 Person:2 Person:3 Person:4
+LRANGE Organization:1:members 0 -1
+LTRIM Organization:1:menbers 0 2
+LRANGE Organization:1:menbers 0 -1
+LRANGE Organization:1:members 0 -1
+LTRIM Organization:1:members 0 2
+LRANGE Organization:1:members 0 -1
+HSET Book:3:name "Cats Cradle"
+HSET Book:3 name "Cats Cradle"
+HGET Book:3 name
+HMSET Book:4 name "Slaughterhouse-Five" author "Kurt Vonnegut" copyrightYear 1969 ISBN 29960763
+HMGET Book:4 
+HMGETALL Book:4 
+HGETALL Book:4 
+HGET Book:4 
+HGET Book:4 author
+HEXISTS Book:4 copyrightYear
+HLEN Book:r
+HLEN Book:4
+HDEL Book:4 copyrightYear
+HGETALL Book:4
+HSET Book:4 copyrightYear 1968
+HINCRBY Book:4 copyrightYear 1
+HGET Book:4 copyrightYear
+SET Organization:5 "Beatles"
+SADD Organization:5:member Paul John George Ringo
+ SMEMBERS Organization:5:member
+SCARD Organization:5:member
+SCARD Organization:5
+SET Organization:6 "Wings"
+SET Organization:7 "Traveling Wilburys"
+SADD Organization:6:member Paul Linda Denny
+SADD Organization:7:member Bob George Jeff Roy Tom
+SMEMBERS Organization:5:members
+SMEMBERS Organization:5:member
+SMEMBERS Organization:6:member
+SUNION Organization:5:member Organization:6:member
+SUNION Organization:6:member Organization:7:member
+SUNION Organization:5:member Organization:6:member Organization:8
+SMEMBERS Organization:8:member
+KEYS Organization:8*
+keys o*
+keys O*
+help sunion
+SUNION Organization:5:member Organization:6:member Organization:8
+KEYS Organization:8*
+SET Organization:5 "Beatles"
+SMEMBERS Organization:8:member
+SMEMBERS Organization:6:member
