@@ -11,8 +11,8 @@ public class Insertion {
     public static void main(String[] args) {
         Map<Character, Integer> nameMap = new HashMap<>();
 
-        try (Scanner sc = new Scanner(new File("./Lab1/1_2/names.txt"))) {
-            try (PrintWriter out = new PrintWriter(new File("./Lab1/1_2/names_counting.txt"))) {
+        try (Scanner sc = new Scanner(new File("names.txt"))) {
+            try (PrintWriter out = new PrintWriter(new File("names_counting.txt"))) {
                 while (sc.hasNextLine()) {
                     String name = sc.nextLine();
                     if (!nameMap.containsKey(name.charAt(0))) {
