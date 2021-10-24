@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>forum</name>
+	<name>mensagens</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -22,7 +22,7 @@
 	</natures>
 	<filteredResources>
 		<filter>
-			<id>1634407159594</id>
+			<id>1635111994855</id>
 			<name></name>
 			<type>30</type>
 			<matcher>

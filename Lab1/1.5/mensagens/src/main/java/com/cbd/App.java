@@ -41,11 +41,11 @@ public class App {
                     associacaoUtilizadores();
                     break;
                 case 3:
-                    enviarMenssagens();
+                    enviarMensagens();
                     break;
 
                 case 4:
-                    lerMenssagens();
+                    lerMensagens();
                     break;
             }
         } while (sc.nextInt() != 5);
@@ -82,7 +82,7 @@ public class App {
     }
 
 
-    public static void enviarMenssagens() {
+    public static void enviarMensagens() {
         Scanner sc = new Scanner(System.in);
 
         System.out.println(postHash.getUserSet());
@@ -98,7 +98,7 @@ public class App {
         postSet.saveFollower(user, userToSubscribe);   
     }
 
-    public static void lerMenssagens() {
+    public static void lerMensagens() {
         Scanner sc = new Scanner(System.in);
 
         System.out.printf("Which user are you? ");

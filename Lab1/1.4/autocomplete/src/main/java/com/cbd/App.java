@@ -7,10 +7,27 @@ import redis.clients.jedis.Jedis;
 
 public class App 
 {
-    public static void main( String[] args )
-    {
-        PostSet boardSet = new PostSet();
+    static PostSet boardSet = new PostSet();
+    public static void main( String[] args ) {
+        Scanner scanner = new Scanner(System.in);
 
+        System.out.print("Choose the 'alinea': ");
+        String input = scanner.nextLine();
+
+        if (input.equals("A") || input.equals("a")) {
+            alineaA();
+        } else if (input.equals("B") || input.equals("b")) {
+            alineaB();
+        } else {
+            System.out.println("Choose between A and B");
+        }
+
+        scanner.close();
+    }
+    
+    public static void alineaA() {
+        PostSet boardSet = new PostSet();
+        
         try (Scanner input = new Scanner(new File("names.txt"))) {
 
             while (input.hasNext()) {
@@ -19,7 +36,7 @@ public class App
             }
 
             Scanner sc = new Scanner(System.in);
-            while(true) {
+            while (true) {
                 System.out.print("Search for ('Enter for quit'): ");
                 String search_name = sc.nextLine();
                 if (search_name.length() == 0) {
@@ -28,23 +45,27 @@ public class App
 
                 Set<String> answers = boardSet.getUser(search_name);
                 System.out.println(search_name);
-                for(String answer : answers) {
+                for (String answer : answers) {
                     System.out.println(answer);
                 }
                 System.out.println();
 
             }
-            
+            sc.close();
+
         } catch (FileNotFoundException e) {
             System.err.println("File not found");
             System.exit(0);
         }
 
-        // alinea b)
+    }
+    
+    public static void alineaB() {
         PostCsv boardCsv = new PostCsv();
+
         try (Scanner input2 = new Scanner(new File("nomes-pt-2021.csv"))) {
 
-            while(input2.hasNext()) {
+            while (input2.hasNext()) {
                 String[] row = input2.next().split(";");
                 boardCsv.saveUser(row[0], Integer.parseInt(row[1]));
             }
@@ -58,17 +79,19 @@ public class App
                 }
 
                 Set<String> answers = boardCsv.getUser();
-                for(String answer : answers) {
+                for (String answer : answers) {
                     System.out.println(answer);
                 }
                 System.out.println();
             }
-            
+            scanner.close();
+
         } catch (FileNotFoundException e) {
             System.err.println("File not found");
             System.exit(0);
         }
     }
+
 }
 
 class PostSet {
