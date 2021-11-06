@@ -1,0 +1,4 @@
+
+alinea c)
+db.phones.aggregate([{$group: {_id: "$components.prefix", sum: {$sum: 1}}}])
+
