@@ -1,0 +1,22 @@
+# CBD - Lab 205 - Pedro Sobral
+
+A base de dados foi importada de um dataset publico: https://github.com/ozlerhakan/mongodb-json-files/blob/master/datasets/books.json
+É uma base de dados sobre livros, tendos as seguintes carateristicas dos mesmos:
+    - id
+    - titulo
+    - ISBN
+    - numero de páginas
+    - data de publicação
+    - url para foto da capa
+    - descrição pequena
+    - descrição longa
+    - estado do livro
+    - autores
+    - categorias
+
+Para importar o dataset, basta executar o comando:
+mongoimport --db cbd --collection students -drop --file colletion.json
+
+alinea c)
+
+db.students.find({"scores.type": "homework"}, {_id: 0, scores:1})

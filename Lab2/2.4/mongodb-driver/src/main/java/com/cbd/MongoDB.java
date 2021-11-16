@@ -125,7 +125,6 @@ public class MongoDB {
         }
     }
 
-    // esta função é um bocado estupida porque dá a base de dados toda...
     public static void search() {
         try {
             FindIterable<Document> documents = mCollection.find();
