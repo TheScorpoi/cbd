@@ -18,5 +18,33 @@ Para importar o dataset, basta executar o comando:
 mongoimport --db cbd --collection students -drop --file colletion.json
 
 alinea c)
+- Liste todos os livros publicados após 2009.
+db.books.find({publishedDate: {$gt: new Date("2009-01-01T00:00:00Z")}}, {_id: 0, title: 1})
 
-db.students.find({"scores.type": "homework"}, {_id: 0, scores:1})
+- Liste todos os livros publicados pelo autor "Michael J. Barlotta"
+db.books.find({authors: "Michael J. Barlotta"}, {_id: 0, title: 1})
+
+- Liste todos os livros que têm "Java" no tituloe que têm mais de 500 páginas
+db.books.find({$and: [{pageCount: {$gt: 500}}, {title: {$regex: /^Java/ }}]}, {_id: 0, title: 1})
+
+- Liste todos os livros que possuem um ISBN maior que 1900000000 e um número de paginas inferior a 350, e odenados pelo isbn
+db.books.find({$and: [{isbn: {$gt: 1900000000}}, {pageCount: {$lt: 350}}]}, {_id: 0, title: 1, pageCount: 1, isbn: 1}).sort({isbn: 1})
+
+- Liste o livro que tem mais páginas
+db.books.find({},{_id: 0, title: 1, pageCount: 1}).sort({pageCount: -1}).limit(1)
+
+- Liste o livro que tem menos páginas
+db.books.find({},{_id: 0, title: 1, pageCount: 1}).sort({pageCount: 1}).limit(1)
+
+alinea (d)
+
+- Liste o nome de todos os autores que publicaram pelo menos um livro
+db.books.distinct("authors", {"authors": 1})
+
+- Liste todas as categorias de livros
+
+- Calcule a média de páginas de todos os livros
+
+- Liste o livro com mais páginas por categoria
+
+- 

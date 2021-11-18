@@ -44,32 +44,32 @@ public class MongoDB {
             //search();
 
             //alinea b)
-            /*
+            
             start = System.nanoTime();
-            searchWithFilterWithoutPrints(and(eq("localidade", "Brooklyn"), eq("gastronomia", "Chinese")));
+            //searchWithFilterWithoutPrints(and(eq("localidade", "Brooklyn"), eq("gastronomia", "Chinese")));
             stop = System.nanoTime();
-            deltaBeforeIndex = (stop - start) / 1e6;*/
+            deltaBeforeIndex = (stop - start) / 1e6;
 
             createIndex("localidade");
             createIndex("gastronomia");
             
-            /*
+            
             start = System.nanoTime();
-            searchWithFilterWithoutPrints(and(eq("localidade", "Brooklyn"), eq("gastronomia", "Chinese")));
+            //searchWithFilterWithoutPrints(and(eq("localidade", "Brooklyn"), eq("gastronomia", "Chinese")));
             stop = System.nanoTime();
             deltaAfterIndex = (stop - start) / 1e6;
-
+            
             createIndexByText("nome");
 
             start = System.nanoTime();
-            searchWithFilter(regex("nome", "^Wil"));
+            //searchWithFilter(regex("nome", "^Wil"));
             stop = System.nanoTime();
             deltaAfterIndexText = (stop - start) / 1e6;
 
             System.out.println("Tempo de execução antes da criação do índice: " + deltaBeforeIndex + " ms");
             System.out.println("Tempo de execução depois do index: " + deltaAfterIndex + " ms");
             System.out.println("Tempo de execução depois do index: " + deltaAfterIndexText + " ms");
-            */
+            
             //alinea c)
             // 8
             //searchWithFilter(lt("address.coord.0", -95.7));
