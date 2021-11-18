@@ -14,10 +14,12 @@ import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.client.model.Indexes;
+import static com.mongodb.client.model.Filters.*;
 
 import org.bson.Document;
 import org.bson.conversions.Bson;
 import org.bson.types.ObjectId;
+
 
 public class MongoDB {
 
@@ -25,13 +27,10 @@ public class MongoDB {
 
     public static void main(String[] args) {
 
-        double start, stop, deltaBeforeIndex, deltaAfterIndex, deltaAfterIndexText;
-
         try (MongoClient client = MongoClients.create("mongodb://localhost:27017")) {
             MongoDatabase database = client.getDatabase("cbd");
             mCollection = database.getCollection("restaurants");
 
-            //alinea a)
             Document doc1 = new Document("_id", new ObjectId())
                     .append("address",
                             new Document().append("building", "123").append("coord", asList(123.021, 143.021))
@@ -40,71 +39,77 @@ public class MongoDB {
                     .append("grades", asList(new Document("date", new Date()).append("grade", "A").append("score", 10)))
                     .append("nome", "Restaurante de Teste").append("restaurant_id", "12345");
 
-            //insert(doc1);
-            //search();
+            //! Para correr a alinea desejada, basta descomentar a linha correspondente
 
-            //alinea b)
-            
-            start = System.nanoTime();
-            //searchWithFilterWithoutPrints(and(eq("localidade", "Brooklyn"), eq("gastronomia", "Chinese")));
-            stop = System.nanoTime();
-            deltaBeforeIndex = (stop - start) / 1e6;
-
-            createIndex("localidade");
-            createIndex("gastronomia");
-            
-            
-            start = System.nanoTime();
-            //searchWithFilterWithoutPrints(and(eq("localidade", "Brooklyn"), eq("gastronomia", "Chinese")));
-            stop = System.nanoTime();
-            deltaAfterIndex = (stop - start) / 1e6;
-            
-            createIndexByText("nome");
-
-            start = System.nanoTime();
-            //searchWithFilter(regex("nome", "^Wil"));
-            stop = System.nanoTime();
-            deltaAfterIndexText = (stop - start) / 1e6;
-
-            System.out.println("Tempo de execução antes da criação do índice: " + deltaBeforeIndex + " ms");
-            System.out.println("Tempo de execução depois do index: " + deltaAfterIndex + " ms");
-            System.out.println("Tempo de execução depois do index: " + deltaAfterIndexText + " ms");
-            
-            //alinea c)
-            // 8
-            //searchWithFilter(lt("address.coord.0", -95.7));
-            
-            // 9({gastronomia: "American", "grades.score": {$gt: 70}
-            //searchWithFilter(and(eq("gastronomia", "American"), gt("grades.score", 70)));
-            
-            // 11
-            //searchWithFilter(and(eq("localidade", "Bronx"), in("gastronomia", "American", "Chinese")));
-
-            //12
-            //searchWithFilter(and(in("localidade", "State Island", "Queens", "Brooklyn")));
-
-            //13
-            //searchWithFilter(and(gt("address.coord.1", 42), lte("address.coord.1", 52)));
-
-            //alinea d)
-            System.out.printf("Numero de localidae distintas: %d\n", countLocalidades());
-
-            Map<String, Integer> restLocalMap =  countRestByLocalidade();
-            System.out.println("Numero de restaurants por localidade:");
-            for (String key : restLocalMap.keySet()) {
-                System.out.println(" -> " + key + " - " + restLocalMap.get(key));
-            }
-
-            List<String> restNameCloserTo = getRestWithNameCloserTo("Park");
-            System.out.println("Numero de restaurants contendo 'Park' no nome:");
-            for (String restaurant : restNameCloserTo) {
-                System.out.println(" -> " + restaurant);
-            }
-
-
+            // alineaA(doc1);
+            // alineaB();
+            // alineaC();
+            // alineaD();
 
         } catch (Exception e) {
             System.err.println("ERROR: Connection not established!");
+        }
+    }
+
+    public static void alineaA(Document doc) {
+        insert(doc);
+        search();
+    }
+
+    public static void alineaB() {
+        double start, stop, deltaBeforeIndex, deltaAfterIndex, deltaAfterIndexText;
+
+        start = System.nanoTime();
+        searchWithFilterWithoutPrints(and(eq("localidade", "Brooklyn"), eq("gastronomia", "Chinese")));
+        stop = System.nanoTime();
+        deltaBeforeIndex = (stop - start) / 1e6;
+
+        createIndex("localidade");
+        createIndex("gastronomia");
+
+        start = System.nanoTime();
+        searchWithFilterWithoutPrints(and(eq("localidade", "Brooklyn"), eq("gastronomia", "Chinese")));
+        stop = System.nanoTime();
+        deltaAfterIndex = (stop - start) / 1e6;
+
+        createIndexByText("nome");
+
+        start = System.nanoTime();
+        searchWithFilterWithoutPrints(regex("nome", "^Wil"));
+        stop = System.nanoTime();
+        deltaAfterIndexText = (stop - start) / 1e6;
+
+        System.out.println("Tempo de execução antes da criação do índice: " + deltaBeforeIndex + " ms");
+        System.out.println("Tempo de execução depois do index: " + deltaAfterIndex + " ms");
+        System.out.println("Tempo de execução depois do index: " + deltaAfterIndexText + " ms");
+    }
+
+    public static void alineaC() {
+        // 8
+        searchWithFilter(lt("address.coord.0", -95.7));
+        // 9
+        searchWithFilter(and(eq("gastronomia", "American"), gt("grades.score", 70)));
+        // 11
+        searchWithFilter(and(eq("localidade", "Bronx"), in("gastronomia", "American", "Chinese")));
+        // 12
+        searchWithFilter(and(in("localidade", "State Island", "Queens", "Brooklyn")));
+        // 13
+        searchWithFilter(and(gt("address.coord.1", 42), lte("address.coord.1", 52)));
+    }
+
+    public static void alineaD() {
+        System.out.printf("Numero de localidae distintas: %d\n", countLocalidades());
+
+        Map<String, Integer> restLocalMap = countRestByLocalidade();
+        System.out.println("Numero de restaurants por localidade:");
+        for (String key : restLocalMap.keySet()) {
+            System.out.println(" -> " + key + " - " + restLocalMap.get(key));
+        }
+
+        List<String> restNameCloserTo = getRestWithNameCloserTo("Park");
+        System.out.println("Numero de restaurants contendo 'Park' no nome:");
+        for (String restaurant : restNameCloserTo) {
+            System.out.println(" -> " + restaurant);
         }
     }
 
@@ -141,7 +146,7 @@ public class MongoDB {
             FindIterable<Document> documents = mCollection.find(filter);
             for (Document doc : documents) {
                 System.out.println(doc.toJson());
-            }          
+            }
         } catch (Exception e) {
             System.err.println("ERROR: Searching on database!");
         }

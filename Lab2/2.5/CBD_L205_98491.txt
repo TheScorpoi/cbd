@@ -38,13 +38,20 @@ db.books.find({},{_id: 0, title: 1, pageCount: 1}).sort({pageCount: 1}).limit(1)
 
 alinea (d)
 
-- Liste o nome de todos os autores que publicaram pelo menos um livro
-db.books.distinct("authors", {"authors": 1})
+- Liste o nome de todos os autores que publicaram pelo menos um livro 
+db.books.distinct("authors")
 
 - Liste todas as categorias de livros
+db.books.distinct("categories")
 
 - Calcule a média de páginas de todos os livros
+db.books.aggregate([{$group: {_id: "avg_page_count", avg: {$avg: "$pageCount"}}}])
 
 - Liste o livro com mais páginas por categoria
+db.books.aggregate([{$group: {_id: "$categories", max_page_count: {$max: "$pageCount"}}}])
 
-- 
+- Liste os autores que já tenham publicado mais que um livro
+db.books.aggregate([{$group: {_id: "$authors", count: {$sum: 1}}}, {$match: {count: {$gt: 1}}}, {$sort: {count: -1}}])
+
+- Liste os autores com livros com o mesmo numero de páginas
+db.books.aggregate([{$group: {_id: "$authors", page_count: {$sum: "$pageCount"}}}, {$match: {page_count: {$gt: 1}}}])
