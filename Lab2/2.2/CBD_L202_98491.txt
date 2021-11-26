@@ -22,7 +22,7 @@
 
 11 - db.restaurants.find( { $and : [{localidade: "Bronx" }, {gastronomia: {$in : ["American","Chinese"] }}]} ,{ nome:1, localidade : 1 , gastronomia:1, _id:0})
 
-12 - db.restaurants.find({localidade: {$in : ["Staten Island", "Queens", "Brooklyn"] }} ,{restaurant_id: 1, nome: 1 , localidade: 1, 
+12 - db.restaurants.find({localidade: {$in : ["Staten Island", "Queens", "Brooklyn"] }} ,{restaurant_id: 1, nome: 1 , localidade: 1, gastronomia: 1, _id: 0})
 
 13 - db.restaurants.find({"grades.score": {$not: {$gt: 3}}} ,{nome: 1 , localidade: 1, score: 1, gastronomia: 1, _id: 0})
 
