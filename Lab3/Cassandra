@@ -1,0 +1,7 @@
+COMO INICIAR O CASSANDRA:
+
+nodetool statys -> para ver se está ligado
+sudo service cassandra start -> para iniciar o servidor
+cqlsh -> para correr a aplicação de cassandra
+
+https://phoenixnap.com/kb/install-cassandra-on-ubuntu
