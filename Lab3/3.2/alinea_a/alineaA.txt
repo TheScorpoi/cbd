@@ -1,0 +1,204 @@
+CREATE KEYSPACE "videos_bd" WITH replication = {'class': 'SimpleStrategy', 'replication_factor': 3};
+
+CREATE TABLE user(
+    username text,
+    nome text,
+    email text,
+    resgisto_plataforma timestamp,
+    PRIMARY KEY (username)
+);
+
+CREATE TABLE video (
+    id uuid,
+    titulo text,
+    descricao text,
+    tag set<text>,
+    data_upload timestamp,
+    autor_partilha text,
+
+    PRIMARY KEY (autor_partilha, data_upload)
+);
+
+CREATE TABLE video_pelo_id (
+    id uuid,
+    titulo text,
+    descricao text,
+    tag set<text>,
+    data_upload timestamp,
+    autor_partilha text,
+
+    PRIMARY KEY (id, data_upload)
+);
+
+CREATE TABLE video_pela_tag (
+    id_video uuid,
+    tag set<text>,
+
+    PRIMARY KEY (tag)
+);
+
+CREATE TABLE seguidores_video (
+    id_video uuid,
+    id_seguidor text,
+    PRIMARY KEY (id_video, id_seguidor)
+);
+
+CREATE TABLE evento (
+    id uuid,
+    user text,
+    video_id uuid,
+    evento text,
+    horario_real timestamp,
+    tempo_video int,
+
+    PRIMARY KEY ((user, video_id), horario_real, tempo_video))
+    WITH CLUSTERING ORDER BY (horario_real DESC
+);
+
+CREATE TABLE rating(
+    id uuid,
+    id_video uuid,
+    rating int,
+
+    PRIMARY KEY (id_video, id)
+);
+
+CREATE TABLE comentarios_user(
+    id uuid,
+    user text,
+    video_id uuid,
+    comentario text,
+    feito_a timestamp,
+
+    PRIMARY KEY (user, feito_a)) WITH CLUSTERING ORDER BY (feito_a DESC
+);
+
+CREATE TABLE comentarios_video(
+    id uuid,
+    video_id uuid,
+    user text,
+    comentario text,
+    feito_a timestamp,
+
+    PRIMARY KEY (video_id, feito_a)) WITH CLUSTERING ORDER BY (feito_a DESC
+);
+
+
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('antonio123', 'Antonio', 'ant@mail.com', dateof(now()));
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('XjoaoX', 'Joao', 'j@mail.com', dateof(now()));
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('xavier878', 'Xavier', 'xxavier@mail.com', dateof(now()));
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('__rui__', 'Rui', 'ruirui@mail.com', dateof(now()));
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('alberto.faria', 'Alberto', 'alb@mail.com', dateof(now()));
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('carlo3', 'Carlos', 'charles@mail.com', dateof(now()));
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('s33bas', 'Sebastiao', 'sebas@mail.com', dateof(now()));
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('olx', 'Tiago', 'custo_justo@mail.com', dateof(now()));
+INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('kxyxk', 'Bastiao', 'bastok@mail.com', dateof(now()));
+
+
+INSERT INTO video (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a28dc90-5632-11ec-b1cd-85f5958119b0, 'Como construir uma casa (DEU CERTO?)', 'Como construir uma casa em menos de 10 min', {'construção', 'cimento'}, dateof(now()), 'antonio123');
+INSERT INTO video (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a2fe170-5632-11ec-b1cd-85f5958119b0, 'Cassandra, introducão ao tema', 'Video sobre cassadra e por onde deves iniciar a tua aprendizagem', {'educacao', 'base de dados'}, dateof(now()), 'XjoaoX');
+INSERT INTO video (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 'Factos desconhecidos', 'Exato, coisas que ninguem sabe... ', {'cultura geral'}, dateof(now()), 'xavier878');
+INSERT INTO video (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a393040-5632-11ec-b1cd-85f5958119b0, 'MAX ESTÁ A SER PREJUDICADO PELA FIA', 'FIA muito mal, MASI não entende nada', {'F1', 'MAX'}, dateof(now()), '__rui__');
+INSERT INTO video (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a364a10-5632-11ec-b1cd-85f5958119b0, 'LUIS DOS HAMILTONS PREJUDICADO?', 'Claro que não, titulo era clickbait', {'F1', 'HAM'}, dateof(now()), 'alberto.faria');
+INSERT INTO video (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8abbcdc0-5632-11ec-b1cd-85f5958119b0, 'Fernando Santos, tem de ser expulso', 'RUA COM ELE!!!', {'futebol', 'desporto'}, dateof(now()), 'carlo3');
+INSERT INTO video (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a2be9d0-5632-11ec-b1cd-85f5958119b0, 'Pudim de arroz', 'Novo video meninas, espero que gostem', {'culinaria', 'comida'}, dateof(now()), 's33bas');
+INSERT INTO video (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a32eeb0-5632-11ec-b1cd-85f5958119b0, 'Los Gunas', 'Deixem o like, ou levam facada', {'gunada', 'crime', 'Aveiro'}, dateof(now()), 'olx');
+
+INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a28dc90-5632-11ec-b1cd-85f5958119b0, 'Como construir uma casa (DEU CERTO?)', 'Como construir uma casa em menos de 10 min', {'construção', 'cimento'}, dateof(now()), 'antonio123');
+INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a2fe170-5632-11ec-b1cd-85f5958119b0, 'Cassandra, introducão ao tema', 'Video sobre cassadra e por onde deves iniciar a tua aprendizagem', {'educacao', 'base de dados'}, dateof(now()), 'XjoaoX');
+INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 'Factos desconhecidos', 'Exato, coisas que ninguem sabe... ', {'cultura geral'}, dateof(now()), 'xavier878');
+INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a393040-5632-11ec-b1cd-85f5958119b0, 'MAX ESTÁ A SER PREJUDICADO PELA FIA', 'FIA muito mal, MASI não entende nada', {'F1', 'MAX'}, dateof(now()), '__rui__');
+INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a364a10-5632-11ec-b1cd-85f5958119b0, 'LUIS DOS HAMILTONS PREJUDICADO?', 'Claro que não, titulo era clickbait', {'F1', 'HAM'}, dateof(now()), 'alberto.faria');
+INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8abbcdc0-5632-11ec-b1cd-85f5958119b0, 'Fernando Santos, tem de ser expulso', 'RUA COM ELE!!!', {'futebol', 'desporto'}, dateof(now()), 'carlo3');
+INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a2be9d0-5632-11ec-b1cd-85f5958119b0, 'Pudim de arroz', 'Novo video meninas, espero que gostem', {'culinaria', 'comida'}, dateof(now()), 's33bas');
+INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (8a32eeb0-5632-11ec-b1cd-85f5958119b0, 'Los Gunas', 'Deixem o like, ou levam facada', {'gunada', 'crime', 'Aveiro'}, dateof(now()), 'olx');
+
+
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'antonio123',8a28dc90-5632-11ec-b1cd-85f5958119b0 , 'Video muito bom', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'XjoaoX', 8a2fe170-5632-11ec-b1cd-85f5958119b0, 'Completamente de acordo', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'antonio123', 8a2fe170-5632-11ec-b1cd-85f5958119b0, 'Por mim tá top, irmão', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'xavier878', cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 'Comigo nao correu tao bem...', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), '__rui__', 8a393040-5632-11ec-b1cd-85f5958119b0, 'gostei muito', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'carlo3', 8a364a10-5632-11ec-b1cd-85f5958119b0, 'RUA FERNANDO SANTOS, AQUI EM GAIA', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 's33bas', 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 'BRRRRAAAAAA, BAIRRO SANTIAGO 4EVER', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'olx', 8a2be9d0-5632-11ec-b1cd-85f5958119b0, 'de facto não conhecia', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'kxyxk', 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 'Hamilton é chorão', dateof(now()));
+INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'olx', 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 'Ham só chora tambem', dateof(now()));
+
+
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 'antonio123', 8a28dc90-5632-11ec-b1cd-85f5958119b0, 'Video muito bom', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 'XjoaoX', 8a2fe170-5632-11ec-b1cd-85f5958119b0, 'Completamente de acordo', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 'antonio123', 8a2fe170-5632-11ec-b1cd-85f5958119b0, 'Por mim tá top, irmão', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 'xavier878', cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 'Comigo nao correu tao bem...', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), '__rui__', 8a393040-5632-11ec-b1cd-85f5958119b0, 'gostei muito', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 'carlo3', 8a364a10-5632-11ec-b1cd-85f5958119b0, 'RUA FERNANDO SANTOS, AQUI EM GAIA', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 's33bas', 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 'BRRRRAAAAAA, BAIRRO SANTIAGO 4EVER', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 'olx', 8a2be9d0-5632-11ec-b1cd-85f5958119b0, 'de facto não conhecia', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 'kxyxk', 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 'Hamilton é chorão', dateof(now()));
+INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (now(), 'olx', 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 'Ham só chora tambem', dateof(now()));
+
+
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'antonio123', 8a28dc90-5632-11ec-b1cd-85f5958119b0, 'play', dateof(now()), 0);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'XjoaoX', 8a2fe170-5632-11ec-b1cd-85f5958119b0, 'stop', dateof(now()), 24);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'xavier878', cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 'play', dateof(now()), 55);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), '__rui__', 8a393040-5632-11ec-b1cd-85f5958119b0, 'stop', dateof(now()), 345);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'carlo3', 8a364a10-5632-11ec-b1cd-85f5958119b0, 'play', dateof(now()), 3);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 's33bas', 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 'stop', dateof(now()), 66);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'olx', 8a2be9d0-5632-11ec-b1cd-85f5958119b0, 'play', dateof(now()), 56);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'kxyxk', 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 'stop', dateof(now()), 12);
+
+
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a28dc90-5632-11ec-b1cd-85f5958119b0, 'antonio123');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a2fe170-5632-11ec-b1cd-85f5958119b0, 'XjoaoX');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a393040-5632-11ec-b1cd-85f5958119b0, 'xavier878');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8abbcdc0-5632-11ec-b1cd-85f5958119b0, '__rui__');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a28dc90-5632-11ec-b1cd-85f5958119b0, 'carlo3');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a32eeb0-5632-11ec-b1cd-85f5958119b0, 's33bas');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a364a10-5632-11ec-b1cd-85f5958119b0, 'olx');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a2be9d0-5632-11ec-b1cd-85f5958119b0, 'kxyxk');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (cbc9d0b0-5631-11ec-b1cd-85f5958119b0, '__rui__');
+
+
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 4);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 1);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2fe170-5632-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2fe170-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2fe170-5632-11ec-b1cd-85f5958119b0, 1);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2fe170-5632-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2fe170-5632-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a393040-5632-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a393040-5632-11ec-b1cd-85f5958119b0, 4);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a393040-5632-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a393040-5632-11ec-b1cd-85f5958119b0, 1);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a393040-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 4);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 4);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8abbcdc0-5632-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 4);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 4);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 4);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 1);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2be9d0-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2be9d0-5632-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2be9d0-5632-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2be9d0-5632-11ec-b1cd-85f5958119b0, 4);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a2be9d0-5632-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 5);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 2);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 3);
+INSERT INTO rating (id, id_video, rating) VALUES (now(), cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 1);

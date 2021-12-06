@@ -1,0 +1,26 @@
+7 - SELECT * FROM video WHERE autor_partilha = '__rui__';
+
+autor_partilha | data_upload                     | descricao                            | id                                   | tag           | titulo
+----------------+---------------------------------+--------------------------------------+--------------------------------------+---------------+-------------------------------------
+__rui__ | 2021-12-06 02:19:59.701000+0000 | FIA muito mal, MASI não entende nada | 8a393040-5632-11ec-b1cd-85f5958119b0 | {'F1', 'MAX'} | MAX ESTÁ A SER PREJUDICADO PELA FIA
+
+8 - SELECT * FROM comentarios_user WHERE user = 'antonio123';
+
+user       | feito_a                         | comentario            | id                                   | video_id
+------------+---------------------------------+-----------------------+--------------------------------------+--------------------------------------
+ antonio123 | 2021-12-06 02:29:13.869000+0000 | Por mim tá top, irmão | 4d6d7bd1-563c-11ec-b1cd-85f5958119b0 | 8a2fe170-5632-11ec-b1cd-85f5958119b0
+ antonio123 | 2021-12-06 01:29:00.447000+0000 |       Video muito bom | e3a90af1-5633-11ec-b1cd-85f5958119b0 | 8a28dc90-5632-11ec-b1cd-85f5958119b0
+
+9 - SELECT * FROM comentarios_video WHERE video_id = 8a32eeb0-5632-11ec-b1cd-85f5958119b0;
+
+video_id                             | feito_a                         | comentario          | id                                   | user
+--------------------------------------+---------------------------------+---------------------+--------------------------------------+-------
+ 8a32eeb0-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:29:56.152000+0000 | Ham só chora tambem | 66a15b81-563c-11ec-b1cd-85f5958119b0 |   olx
+ 8a32eeb0-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 01:31:47.774000+0000 |   Hamilton é chorão | 476544f0-5634-11ec-b1cd-85f5958119b0 | kxyxk
+
+10 - SELECT avg(rating) as Media, count(rating) as n_ratings FROM rating WHERE id_video = 8a32eeb0-5632-11ec-b1cd-85f5958119b0;
+
+media | n_ratings
+-------+-----------
+     2 |         5
+     
