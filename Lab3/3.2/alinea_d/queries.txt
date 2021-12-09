@@ -14,3 +14,62 @@ tag
 ------------------------------------------------------------------------------------
 3
 SELECT * FROM video where tag 'Aveiro';
+
+------------------------------------------------------------------------------------
+4
+SELECT * FROM evento WHERE user = 'XjoaoX' and video_id = 8a28dc90-5632-11ec-b1cd-85f5958119b0;
+
+user   | video_id                             | horario_real                    | tempo_video | evento | id
+--------+--------------------------------------+---------------------------------+-------------+--------+--------------------------------------
+ XjoaoX | 8a28dc90-5632-11ec-b1cd-85f5958119b0 | 2021-12-08 23:51:01.704000+0000 |          24 |   play | b2e54c81-5881-11ec-9ce0-67edd99c18ae
+ XjoaoX | 8a28dc90-5632-11ec-b1cd-85f5958119b0 | 2021-12-08 23:49:44.463000+0000 |          24 |   stop | 84db41f1-5881-11ec-9ce0-67edd99c18ae
+ XjoaoX | 8a28dc90-5632-11ec-b1cd-85f5958119b0 | 2021-12-08 23:49:42.161000+0000 |          24 |   stop | 837c0011-5881-11ec-9ce0-67edd99c18ae
+
+------------------------------------------------------------------------------------
+5
+SELECT * FROM video WHERE autor_partilha = 'antonio123' AND data_upload = '2021-12-06 02:19:59.623000+0000';
+autor_partilha | data_upload                     | descricao                                  | id                                   | tag                       | titulo
+----------------+---------------------------------+--------------------------------------------+--------------------------------------+---------------------------+--------------------------------------
+     antonio123 | 2021-12-06 02:19:59.623000+0000 | Como construir uma casa em menos de 10 min | 8a28dc90-5632-11ec-b1cd-85f5958119b0 | {'cimento', 'construção'} | Como construir uma casa (DEU CERTO?)
+
+------------------------------------------------------------------------------------
+6
+?????
+SELECT * FROM video_pelo_id ORDER BY data_upload LIMIT 10;
+id                                   | data_upload                     | autor_partilha | descricao                                                        | tag                           | titulo
+--------------------------------------+---------------------------------+----------------+------------------------------------------------------------------+-------------------------------+--------------------------------------
+ 8a28dc90-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.249000+0000 |     antonio123 |                       Como construir uma casa em menos de 10 min |     {'cimento', 'construção'} | Como construir uma casa (DEU CERTO?)
+ 8a2fe170-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.280000+0000 |         XjoaoX | Video sobre cassadra e por onde deves iniciar a tua aprendizagem | {'base de dados', 'educacao'} |        Cassandra, introducão ao tema
+ cbc9d0b0-5631-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.305000+0000 |      xavier878 |                               Exato, coisas que ninguem sabe...  |             {'cultura geral'} |                 Factos desconhecidos
+ 8a393040-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.332000+0000 |        __rui__ |                             FIA muito mal, MASI não entende nada |                 {'F1', 'MAX'} |  MAX ESTÁ A SER PREJUDICADO PELA FIA
+ 8a364a10-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.356000+0000 |  alberto.faria |                              Claro que não, titulo era clickbait |                 {'F1', 'HAM'} |      LUIS DOS HAMILTONS PREJUDICADO?
+ 8abbcdc0-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.377000+0000 |         carlo3 |                                                   RUA COM ELE!!! |       {'desporto', 'futebol'} |  Fernando Santos, tem de ser expulso
+ 8a2be9d0-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.404000+0000 |         s33bas |                            Novo video meninas, espero que gostem |       {'comida', 'culinaria'} |                       Pudim de arroz
+ 8a32eeb0-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.429000+0000 |            olx |                                   Deixem o like, ou levam facada | {'Aveiro', 'crime', 'gunada'} |                            Los Gunas
+
+ ------------------------------------------------------------------------------------
+7
+SELECT * FROM seguidores_video WHERE id_video = 8a28dc90-5632-11ec-b1cd-85f5958119b0;
+id_video                             | id_seguidor
+--------------------------------------+-------------
+ 8a28dc90-5632-11ec-b1cd-85f5958119b0 |  antonio123
+ 8a28dc90-5632-11ec-b1cd-85f5958119b0 |      carlo3
+ 8a28dc90-5632-11ec-b1cd-85f5958119b0 |         olx
+
+ ------------------------------------------------------------------------------------
+8
+Não é possivel, só seria possivel através da utilização de um JOIN,
+
+------------------------------------------------------------------------------------
+9
+?????
+Não está bem feita, nao consigo limitar as 5 melhores medias
+SELECT avg(rating) as Media, id_video FROM rating GROUP BY id_video;
+
+------------------------------------------------------------------------------------
+10
+?????
+
+------------------------------------------------------------------------------------
+11
+?????

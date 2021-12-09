@@ -140,6 +140,8 @@ INSERT INTO comentarios_video (id, user, video_id, comentario, feito_a) VALUES (
 
 INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'antonio123', 8a28dc90-5632-11ec-b1cd-85f5958119b0, 'play', dateof(now()), 0);
 INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'XjoaoX', 8a2fe170-5632-11ec-b1cd-85f5958119b0, 'stop', dateof(now()), 24);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'XjoaoX', 8a28dc90-5632-11ec-b1cd-85f5958119b0, 'stop', dateof(now()), 24);
+INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'XjoaoX', 8a28dc90-5632-11ec-b1cd-85f5958119b0, 'play', dateof(now()), 24);
 INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'xavier878', cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 'play', dateof(now()), 55);
 INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), '__rui__', 8a393040-5632-11ec-b1cd-85f5958119b0, 'stop', dateof(now()), 345);
 INSERT INTO evento (id, user, video_id, evento, horario_real, tempo_video) VALUES (now(), 'carlo3', 8a364a10-5632-11ec-b1cd-85f5958119b0, 'play', dateof(now()), 3);
@@ -156,7 +158,12 @@ INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a28dc90-5632-11ec-
 INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a32eeb0-5632-11ec-b1cd-85f5958119b0, 's33bas');
 INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a364a10-5632-11ec-b1cd-85f5958119b0, 'olx');
 INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a2be9d0-5632-11ec-b1cd-85f5958119b0, 'kxyxk');
-INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (cbc9d0b0-5631-11ec-b1cd-85f5958119b0, '__rui__');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a2fe170-5632-11ec-b1cd-85f5958119b0, 'XjoaoX');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (cbc9d0b0-5631-11ec-b1cd-85f5958119b0, 'xavier878');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a32eeb0-5632-11ec-b1cd-85f5958119b0, 'carlo3');
+INSERT INTO seguidores_video (id_video, id_seguidor) VALUES (8a28dc90-5632-11ec-b1cd-85f5958119b0, 'olx');
+
+
 
 
 INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a28dc90-5632-11ec-b1cd-85f5958119b0, 4);
