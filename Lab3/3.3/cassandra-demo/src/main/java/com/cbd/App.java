@@ -62,13 +62,15 @@ public class App {
     }
 
     public static void insertData() {
-        //! Para não estar sempre a inserir os mesmos dados, a função encontra-se comentada.
-        //String cqlStatement = "INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (now(), 'Fiz um INSERT pela aplicação Java (DEU CERTO?)', 'Como inserir dados em Cassandra', {'cassandra', 'Java'}, dateof(now()), 'antonio123')";
-        //String cqlStatement = "INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('joca433', 'Joaquim', 'joaquim@mail.com', dateof(now()))";
-        //String cqlStatement = "INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'antonio123',8a28dc90-5632-11ec-b1cd-85f5958119b0 , 'Gostei mesmo muito, mudou a minha vida', dateof(now()))";
-        //String cqlStatement = "INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 5)";    
+        String cqlStatement1 = "INSERT INTO video_pelo_id (id, titulo, descricao, tag, data_upload, autor_partilha) VALUES (now(), 'Fiz um INSERT pela aplicação Java (DEU CERTO?)', 'Como inserir dados em Cassandra', {'cassandra', 'Java'}, dateof(now()), 'antonio123')";
+        String cqlStatement2 = "INSERT INTO user (username, nome, email, resgisto_plataforma) VALUES ('joca433', 'Joaquim', 'joaquim@mail.com', dateof(now()))";
+        String cqlStatement3 = "INSERT INTO comentarios_user (id, user, video_id, comentario, feito_a) VALUES (now(), 'antonio123',8a28dc90-5632-11ec-b1cd-85f5958119b0 , 'Gostei mesmo muito, mudou a minha vida', dateof(now()))";
+        String cqlStatement4 = "INSERT INTO rating (id, id_video, rating) VALUES (now(), 8a32eeb0-5632-11ec-b1cd-85f5958119b0, 5)";    
 
-        //session.execute(cqlStatement);
+        session.execute(cqlStatement1);
+        session.execute(cqlStatement2);
+        session.execute(cqlStatement3);
+        session.execute(cqlStatement4);
     }
     
     public static void searchData() {
@@ -96,7 +98,16 @@ public class App {
     }
     
     public static void updateData() {
-        //TODO :
+        String cqlStatement = "UPDATE user SET nome = 'Joao Silva' WHERE username = 'XjoaoX'";
+        String cqlStatement1 = "UPDATE user SET nome = 'Rui Silvinha' WHERE username = '__rui__'";
+        String cqlStatement2 = "UPDATE comentarios_video SET comentario = 'Afinal video não foi muito bom' WHERE video_id = 8a28dc90-5632-11ec-b1cd-85f5958119b0";
+
+        session.execute(cqlStatement);
+        session.execute(cqlStatement1);
+        session.execute(cqlStatement2);
         
+        for (Row r : session.execute("SELECT * FROM user WHERE username = 'XjoaoX'")) {
+            System.out.println(r.toString());
+        }
     }
 }
