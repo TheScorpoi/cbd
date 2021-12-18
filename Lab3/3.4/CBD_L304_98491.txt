@@ -1,4 +1,4 @@
-CBD_L304_98491
+CBD - L304 - 98491 - Pedro Sobral
 
 a)
 CREATE KEYSPACE "book_db" WITH replication = ['class': 'SimpleStrategy', 'replication_factor': 1];
@@ -17,8 +17,8 @@ CREATE TABLE livro_titulo (
     isbn text,
     categoria set<text>,
     descricao text,
-    PRIMARY KEY (ano, isbn, ano))
-    WITH CLUSTERING ORDER BY (ano ASC);
+    PRIMARY KEY (nome, ano))
+    WITH CLUSTERING ORDER BY (ano ASC
 );
 
 CREATE TABLE livro_editora (
@@ -29,8 +29,23 @@ CREATE TABLE livro_editora (
     isbn text,
     categoria set<text>,
     descricao text,
-    PRIMARY KEY (editora, isbn, ano)
-    WITH CLUSTERING ORDER BY (ano ASC));
+    PRIMARY KEY (editora, ano))
+    WITH CLUSTERING ORDER BY (ano ASC
+);
+
+CREATE TABLE livro_vendas (
+    nome text,
+    editora text,
+    quantidade int,
+    PRIMARY KEY (nome, editora, quantidade))
+    WITH CLUSTERING ORDER BY (editora DESC, quantidade ASC
+);
+
+CREATE TABLE editora_vendas (
+    editora text,
+    quantidade int,
+    PRIMARY KEY (editora)
+    );
 
 CREATE TABLE editora (
     nome text,
@@ -87,28 +102,49 @@ INSERT INTO editora (nome, morada, telefone, email) VALUES ('Tuga Editora', 'Rua
 INSERT INTO editora (nome, morada, telefone, email) VALUES ('Editora Edições', 'Rua de Baixo, nº 3', '912345674', 'editoraedicoes@email.com');
 INSERT INTO editora (nome, morada, telefone, email) VALUES ('Editora Linda', 'Rua de Baixo, nº 4', '912345675', 'editoralinda@email.com');
 
-d)
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('O Hobbit', 34, 'Minha Editora');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('Harry Potter', 4, 'Editora Presente');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('O Senhor dos Anéis', 44, 'Tuga Editora');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('O Senhor dos Anais', 24, 'Editora Edições');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('O Ruca', 456, 'MInha Editora');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('A Mensagem', 994, 'Editora Linda');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('O ano da Morte de R.R.', 344, 'Editora Presente');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('A Fada Oriana', 29, 'Tuga Editora');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('Livro do Desassossego', 123, 'Editora Edições');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('Marta Não sabe fazer arroz', 6, 'Tuga Editora');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('F1 e a sua história', 333, 'MInha Editora');
+INSERT INTO livro_vendas (nome, quantidade, editora) VALUES ('Eva e a mania das limpeza', 19, 'Editora Presente');
 
+INSERT INTO editora_vendas (editora, quantidade) VALUES ('Minha Editora', 789);
+INSERT INTO editora_vendas (editora, quantidade) VALUES ('Editora Presente', 376);
+INSERT INTO editora_vendas (editora, quantidade) VALUES ('Tuga Editora', 79);
+INSERT INTO editora_vendas (editora, quantidade) VALUES ('Editora Edições', 147);
+INSERT INTO editora_vendas (editora, quantidade) VALUES ('Editora Linda', 994);
+
+d)
+CREATE INDEX livro_t ON livro_titulo (editora);
+CREATE INDEX livro_ed ON livro_editora (nome);
+CREATE INDEX autor_m ON autor(morada);
 
 e)
 UPDATES
 (1) UPDATE livro_titulo SET descricao = 'Semi-heteronimo de Fernando Pessoa' WHERE nome = 'Livro do Desassossego' AND isbn = '978-0-395-07870-3';
-(2)
-(3)
-(4)
-(5)
+(2) UPDATE autor SET morada = 'Rua de Baixo em Cima, nº 33' WHERE nome = 'Antonio Sala';
+(3) UPDATE editora_vendas SET quantidade = 357 WHERE editora = 'Editora Presente' AND quantidade = 376;
+(4) UPDATE livro_editora SET isbn = '978-0-395-07870-2' WHERE editora = 'Minha Editora' AND ano = 1923;
+(5) UPDATE editora SET morada = 'Rua Umberto Delgado, 77' WHERE nome = 'Minha Editora'; 
 
 DELETES
-(1)
-(2)
-(3)
-(4)
-(5)
+(1) DELETE FROM autor WHERE nome = 'Raphael Baldaya';
+(2) DELETE FROM livro_titulo WHERE nome = 'Eva e a mania das limpeza' AND ano = 1923;
+(3) DELETE FROM livro_editora WHERE editora = 'Editora Presente' AND ano = 1923;
+(4) DELETE FROM livro_vendas WHERE nome = 'Eva e a mania das limpeza';
+(5) DELETE FROM autor WHERE nome = 'Antonio Sala';
 
 f)
 (1) - Todos os livros da editora 'Minha Editora'
 SELECT * FROM livro_editora WHERE editora = 'Minha Editora';
-editora       | isbn              | ano  | autor                | categoria        | descricao         | nome
+ editora       | isbn              | ano  | autor                | categoria        | descricao         | nome
 ---------------+-------------------+------+----------------------+------------------+-------------------+---------------------
  Minha Editora | 978-0-395-07870-5 | 1923 |   ['Vicente Guedes'] | {'Carros', 'F1'} |                   | F1 e a sua história
  Minha Editora | 978-0-395-07876-5 | 1937 |   ['J.R.R. Tolkien'] |     {'Aventura'} | Livro de aventura |            O Hobbit
@@ -116,13 +152,13 @@ editora       | isbn              | ano  | autor                | categoria     
 
 (2) - Livro com o titulo 'Livro do Desassossego'
 SELECT * FROM livro_titulo WHERE nome = 'Livro do Desassossego';
-nome                  | isbn              | ano  | autor               | categoria               | descricao                          | editora
+ nome                  | isbn              | ano  | autor               | categoria               | descricao                          | editora
 -----------------------+-------------------+------+---------------------+-------------------------+------------------------------------+-----------------
  Livro do Desassossego | 978-0-395-07870-3 | 1923 | ['Bernardo Soares'] | {'Arte Pura', 'Poesia'} | Semi-heteronimo de Fernando Pessoa | Editora Edições
 
 (3) - Todas as editoras
 SELECT * FROM editora;
-nome             | email                     | morada             | telefone
+ nome             | email                     | morada             | telefone
 ------------------+---------------------------+--------------------+-----------
  Editora Presente | editorapresente@email.com | Rua de Baixo, nº 1 | 912345672
   Editora Edições |  editoraedicoes@email.com | Rua de Baixo, nº 3 | 912345674
@@ -130,16 +166,46 @@ nome             | email                     | morada             | telefone
     Editora Linda |    editoralinda@email.com | Rua de Baixo, nº 4 | 912345675
     Minha Editora |    minhaeditora@email.com | Rua de Baixo, nº 0 | 912345678
 
-(4) - 
+(4) - Todos os livros da editora 'Minha Editora' ordenados pelo ano ASCENDESTEMENTE
+SELECT * FROM livro_editora WHERE editora = 'Minha Editora' ORDER BY ano ASC;
+ editora       | ano  | autor                | categoria        | descricao         | isbn              | nome
+---------------+------+----------------------+------------------+-------------------+-------------------+---------------------
+ Minha Editora | 1923 |   ['Vicente Guedes'] | {'Carros', 'F1'} |                   | 978-0-395-07870-5 | F1 e a sua história
+ Minha Editora | 1937 | ['Alvaro de Campos'] |     {'Aventura'} | Livro de aventura | 978-0-395-07876-9 |              O Ruca
 
-(5) - 
+(5) - Os 2 livros mais recentes da editora 'Editora Presente'
+SELECT * FROM livro_editora WHERE editora = 'Editora Presente' ORDER BY ano DESC LIMIT 2;
+ editora          | ano  | autor            | categoria               | descricao                       | isbn              | nome
+------------------+------+------------------+-------------------------+---------------------------------+-------------------+------------------------
+ Editora Presente | 1997 | ['J.K. Rowling'] |   {'Aventura', 'Magia'} | Livro de aventura e magia negra | 978-0-395-07876-6 |           Harry Potter
+ Editora Presente | 1994 |     ['Saramago'] | {'Politica', 'Romance'} |                Romance politico | 978-0-395-07870-1 | O ano da Morte de R.R.
 
-(6) - 
+(6) - Numero de vendas do livro 'A Mensagem'
+SELECT * FROM livro_vendas WHERE nome = 'A Mensagem';
+ nome       | quantidade | editora
+------------+------------+---------------
+ A Mensagem |        994 | Editora Linda
 
-(7) - 
+(7) - Numero de vendas do da editora 'Editora Linda'
+SELECT * FROM editora_vendas WHERE editora = 'Editora Linda' ORDER BY quantidade LIMIT 1;
+ editora       | quantidade
+---------------+------------
+ Editora Linda |        994
 
-(8) - 
+(8) - Livro mais antigo da editora 'Tuga Editora'
+SELECT * FROM livro_editora WHERE editora = 'Tuga Editora' ORDER BY ano ASC LIMIT 1;
+ editora      | ano  | autor                | categoria               | descricao | isbn              | nome
+--------------+------+----------------------+-------------------------+-----------+-------------------+----------------------------
+ Tuga Editora | 1923 | ['Alexandre Search'] | {'Arte Pura', 'Poesia'} |           | 978-0-395-07870-4 | Marta Não sabe fazer arroz
 
-(9) - 
+ (9) - LIvro mais recente da editora 'Editora Edicoes' 
+ SELECT * FROM livro_editora WHERE editora = 'Editora Edições' ORDER BY ano DESC LIMIT 1;
+ editora         | ano  | autor              | categoria              | descricao                                       | isbn              | nome
+-----------------+------+--------------------+------------------------+-------------------------------------------------+-------------------+--------------------
+ Editora Edições | 1999 | ['Alberto Caeiro'] | {'Aventura', 'Ficção'} | Livro de aventura e descoberta do desconhecidos | 978-0-395-07876-8 | O Senhor dos Anais
 
-(10) - 
+(10) - Media de livros em todas as editoras
+SELECT avg(quantidade) as Media FROM livro_vendas;
+media
+-------
+   217
