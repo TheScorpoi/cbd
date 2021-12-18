@@ -1,0 +1,145 @@
+CBD_L304_98491
+
+a)
+CREATE KEYSPACE "book_db" WITH replication = ['class': 'SimpleStrategy', 'replication_factor': 1];
+
+CREATE TABLE autor (
+    nome text,
+    morada text,
+    PRIMARY KEY (nome)
+);
+
+CREATE TABLE livro_titulo (
+    nome text,
+    autor list<text>,
+    ano int,
+    editora text,
+    isbn text,
+    categoria set<text>,
+    descricao text,
+    PRIMARY KEY (ano, isbn, ano))
+    WITH CLUSTERING ORDER BY (ano ASC);
+);
+
+CREATE TABLE livro_editora (
+    nome text,
+    autor list<text>,
+    ano int,
+    editora text,
+    isbn text,
+    categoria set<text>,
+    descricao text,
+    PRIMARY KEY (editora, isbn, ano)
+    WITH CLUSTERING ORDER BY (ano ASC));
+
+CREATE TABLE editora (
+    nome text,
+    morada text,
+    telefone text,
+    email text,
+    PRIMARY KEY (nome)
+);
+
+b) c)
+INSERT INTO autor (nome, morada) VALUES ('J.R.R. Tolkien', 'Rua de Cima, nº1');
+INSERT INTO autor (nome, morada) VALUES ('J.K. Rowling', 'Rua de Baixo, nº 2');
+INSERT INTO autor (nome, morada) VALUES ('Antonio Sala', 'Rua de Cima, nº 3');
+INSERT INTO autor (nome, morada) VALUES ('Alberto Caeiro', 'Rua de Cima, nº 4');
+INSERT INTO autor (nome, morada) VALUES ('Alvaro de Campos', 'Rua de Cima, nº 5');
+INSERT INTO autor (nome, morada) VALUES ('Fernando Pessoa', 'Rua de Cima, nº 6');
+INSERT INTO autor (nome, morada) VALUES ('Saramago', 'Rua de Cima, nº 7');
+INSERT INTO autor (nome, morada) VALUES ('Sophia de Mello Brayner', 'Rua de Cima, nº 8');
+INSERT INTO autor (nome, morada) VALUES ('Ricardo Reis', 'Rua de Cima, nº 9');
+INSERT INTO autor (nome, morada) VALUES ('Bernardo Soares', 'Rua de Cima, nº 10');
+INSERT INTO autor (nome, morada) VALUES ('Alexandre Search', 'Rua de Cima, nº 11');
+INSERT INTO autor (nome, morada) VALUES ('Vicente Guedes', 'Rua de Cima, nº 12');
+INSERT INTO autor (nome, morada) VALUES ('Raphael Baldaya', 'Rua de Cima, nº 13');
+
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O Hobbit', ['J.R.R. Tolkien'], 1937, 'Minha Editora', '978-0-395-07876-5', {'Aventura'}, 'Livro de aventura');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('Harry Potter', ['J.K. Rowling'], 1997, 'Editora Presente', '978-0-395-07876-6', {'Aventura', 'Magia'}, 'Livro de aventura e magia negra');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O Senhor dos Anéis', ['Antonio Sala'], 1954, 'Tuga Editora', '978-0-395-07876-7', {'Aventura'}, 'Livro de aventura e descoberta do desconhecidos');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O Senhor dos Anais', ['Alberto Caeiro'], 1999, 'Editora Edições', '978-0-395-07876-8', {'Aventura', 'Ficção'}, 'Livro de aventura e descoberta do desconhecidos');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O Ruca', ['Alvaro de Campos'], 1937, 'Minha Editora', '978-0-395-07876-9', {'Aventura'}, 'Livro de aventura');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('A Mensagem', ['Fernando Pessoa'], 1934, 'Editora Linda', '978-0-395-07870-0', {'Poesia', 'Arte Pura'}, 'Peosia linda do Pessoa <3');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O ano da Morte de R.R.', ['Saramago'], 1994, 'Editora Presente', '978-0-395-07870-1', {'Romance', 'Politica'}, 'Romance politico');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('A Fada Oriana', ['Sophia de Mello Brayner'], 1967, 'Tuga Editora', '978-0-395-07870-2', {'Histório Infantil'}, 'Peosia linda do Pessoa <3');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('Livro do Desassossego', ['Bernardo Soares'], 1923, 'Editora Edições', '978-0-395-07870-3', {'Poesia', 'Arte Pura'}, '');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('Marta Não sabe fazer arroz', ['Alexandre Search'], 1923, 'Tuga Editora', '978-0-395-07870-4', {'Poesia', 'Arte Pura'}, '');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('F1 e a sua história', ['Vicente Guedes'], 1923, 'Minha Editora', '978-0-395-07870-5', {'Carros', 'F1'}, '');
+INSERT INTO livro_titulo (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('Eva e a mania das limpeza', ['Raphael Baldaya'], 1923, 'Editora Presente', '978-0-395-07870-6', {'Limpeza'}, '');
+
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O Hobbit', ['J.R.R. Tolkien'], 1937, 'Minha Editora', '978-0-395-07876-5', {'Aventura'}, 'Livro de aventura');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('Harry Potter', ['J.K. Rowling'], 1997, 'Editora Presente', '978-0-395-07876-6', {'Aventura', 'Magia'}, 'Livro de aventura e magia negra');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O Senhor dos Anéis', ['Antonio Sala'], 1954, 'Tuga Editora', '978-0-395-07876-7', {'Aventura'}, 'Livro de aventura e descoberta do desconhecidos');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O Senhor dos Anais', ['Alberto Caeiro'], 1999, 'Editora Edições', '978-0-395-07876-8', {'Aventura', 'Ficção'}, 'Livro de aventura e descoberta do desconhecidos');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O Ruca', ['Alvaro de Campos'], 1937, 'Minha Editora', '978-0-395-07876-9', {'Aventura'}, 'Livro de aventura');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('A Mensagem', ['Fernando Pessoa'], 1934, 'Editora Linda', '978-0-395-07870-0', {'Poesia', 'Arte Pura'}, 'Peosia linda do Pessoa <3');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('O ano da Morte de R.R.', ['Saramago'], 1994, 'Editora Presente', '978-0-395-07870-1', {'Romance', 'Politica'}, 'Romance politico');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('A Fada Oriana', ['Sophia de Mello Brayner'], 1967, 'Tuga Editora', '978-0-395-07870-2', {'Histório Infantil'}, 'Peosia linda do Pessoa <3');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('Livro do Desassossego', ['Bernardo Soares'], 1923, 'Editora Edições', '978-0-395-07870-3', {'Poesia', 'Arte Pura'}, '');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('Marta Não sabe fazer arroz', ['Alexandre Search'], 1923, 'Tuga Editora', '978-0-395-07870-4', {'Poesia', 'Arte Pura'}, '');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('F1 e a sua história', ['Vicente Guedes'], 1923, 'Minha Editora', '978-0-395-07870-5', {'Carros', 'F1'}, '');
+INSERT INTO livro_editora (nome, autor, ano, editora, isbn, categoria, descricao) VALUES ('Eva e a mania das limpeza', ['Raphael Baldaya'], 1923, 'Editora Presente', '978-0-395-07870-6', {'Limpeza'}, '');
+
+INSERT INTO editora (nome, morada, telefone, email) VALUES ('Minha Editora', 'Rua de Baixo, nº 0', '912345678', 'minhaeditora@email.com');
+INSERT INTO editora (nome, morada, telefone, email) VALUES ('Editora Presente', 'Rua de Baixo, nº 1', '912345672', 'editorapresente@email.com');
+INSERT INTO editora (nome, morada, telefone, email) VALUES ('Tuga Editora', 'Rua de Baixo, nº 2', '912345673', 'tugaeditora@email.com');
+INSERT INTO editora (nome, morada, telefone, email) VALUES ('Editora Edições', 'Rua de Baixo, nº 3', '912345674', 'editoraedicoes@email.com');
+INSERT INTO editora (nome, morada, telefone, email) VALUES ('Editora Linda', 'Rua de Baixo, nº 4', '912345675', 'editoralinda@email.com');
+
+d)
+
+
+e)
+UPDATES
+(1) UPDATE livro_titulo SET descricao = 'Semi-heteronimo de Fernando Pessoa' WHERE nome = 'Livro do Desassossego' AND isbn = '978-0-395-07870-3';
+(2)
+(3)
+(4)
+(5)
+
+DELETES
+(1)
+(2)
+(3)
+(4)
+(5)
+
+f)
+(1) - Todos os livros da editora 'Minha Editora'
+SELECT * FROM livro_editora WHERE editora = 'Minha Editora';
+editora       | isbn              | ano  | autor                | categoria        | descricao         | nome
+---------------+-------------------+------+----------------------+------------------+-------------------+---------------------
+ Minha Editora | 978-0-395-07870-5 | 1923 |   ['Vicente Guedes'] | {'Carros', 'F1'} |                   | F1 e a sua história
+ Minha Editora | 978-0-395-07876-5 | 1937 |   ['J.R.R. Tolkien'] |     {'Aventura'} | Livro de aventura |            O Hobbit
+ Minha Editora | 978-0-395-07876-9 | 1937 | ['Alvaro de Campos'] |     {'Aventura'} | Livro de aventura |              O Ruca
+
+(2) - Livro com o titulo 'Livro do Desassossego'
+SELECT * FROM livro_titulo WHERE nome = 'Livro do Desassossego';
+nome                  | isbn              | ano  | autor               | categoria               | descricao                          | editora
+-----------------------+-------------------+------+---------------------+-------------------------+------------------------------------+-----------------
+ Livro do Desassossego | 978-0-395-07870-3 | 1923 | ['Bernardo Soares'] | {'Arte Pura', 'Poesia'} | Semi-heteronimo de Fernando Pessoa | Editora Edições
+
+(3) - Todas as editoras
+SELECT * FROM editora;
+nome             | email                     | morada             | telefone
+------------------+---------------------------+--------------------+-----------
+ Editora Presente | editorapresente@email.com | Rua de Baixo, nº 1 | 912345672
+  Editora Edições |  editoraedicoes@email.com | Rua de Baixo, nº 3 | 912345674
+     Tuga Editora |     tugaeditora@email.com | Rua de Baixo, nº 2 | 912345673
+    Editora Linda |    editoralinda@email.com | Rua de Baixo, nº 4 | 912345675
+    Minha Editora |    minhaeditora@email.com | Rua de Baixo, nº 0 | 912345678
+
+(4) - 
+
+(5) - 
+
+(6) - 
+
+(7) - 
+
+(8) - 
+
+(9) - 
+
+(10) - 
