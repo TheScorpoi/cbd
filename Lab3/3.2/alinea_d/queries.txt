@@ -34,19 +34,7 @@ SELECT * FROM video WHERE autor_partilha = 'antonio123' AND data_upload = '2021-
 
 ------------------------------------------------------------------------------------
 6
-?????
-SELECT * FROM video_pelo_id ORDER BY data_upload LIMIT 10;
- id                                   | data_upload                     | autor_partilha | descricao                                                        | tag                           | titulo
---------------------------------------+---------------------------------+----------------+------------------------------------------------------------------+-------------------------------+--------------------------------------
- 8a28dc90-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.249000+0000 |     antonio123 |                       Como construir uma casa em menos de 10 min |     {'cimento', 'construção'} | Como construir uma casa (DEU CERTO?)
- 8a2fe170-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.280000+0000 |         XjoaoX | Video sobre cassadra e por onde deves iniciar a tua aprendizagem | {'base de dados', 'educacao'} |        Cassandra, introducão ao tema
- cbc9d0b0-5631-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.305000+0000 |      xavier878 |                               Exato, coisas que ninguem sabe...  |             {'cultura geral'} |                 Factos desconhecidos
- 8a393040-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.332000+0000 |        __rui__ |                             FIA muito mal, MASI não entende nada |                 {'F1', 'MAX'} |  MAX ESTÁ A SER PREJUDICADO PELA FIA
- 8a364a10-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.356000+0000 |  alberto.faria |                              Claro que não, titulo era clickbait |                 {'F1', 'HAM'} |      LUIS DOS HAMILTONS PREJUDICADO?
- 8abbcdc0-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.377000+0000 |         carlo3 |                                                   RUA COM ELE!!! |       {'desporto', 'futebol'} |  Fernando Santos, tem de ser expulso
- 8a2be9d0-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.404000+0000 |         s33bas |                            Novo video meninas, espero que gostem |       {'comida', 'culinaria'} |                       Pudim de arroz
- 8a32eeb0-5632-11ec-b1cd-85f5958119b0 | 2021-12-06 02:52:01.429000+0000 |            olx |                                   Deixem o like, ou levam facada | {'Aveiro', 'crime', 'gunada'} |                            Los Gunas
-
+Não será possivel ordenar, pois a query não tem uma clausula 'WHERE' 
  ------------------------------------------------------------------------------------
 7
 SELECT * FROM seguidores_video WHERE id_video = 8a28dc90-5632-11ec-b1cd-85f5958119b0;
@@ -59,18 +47,16 @@ SELECT * FROM seguidores_video WHERE id_video = 8a28dc90-5632-11ec-b1cd-85f59581
  ------------------------------------------------------------------------------------
 8
 Não é possivel, só seria possivel através da utilização de um JOIN,
+Um possivel implementação seria a realização de uma query sobre uma outra querie
 
 ------------------------------------------------------------------------------------
 9
-?????
-Não está bem feita, nao consigo limitar as 5 melhores medias
-SELECT avg(rating) as Media, id_video FROM rating GROUP BY id_video;
+Não será possivel ordenar, pois a query nao tem a clausula 'WHERE'
 
 ------------------------------------------------------------------------------------
 10
-?????
-SELECT * FROM video;
+Não será possivel ordenar, pois a query nao tem a clausula 'WHERE'
 
 ------------------------------------------------------------------------------------
 11
-?????
+De acordo com a implementação só é possivel ver a informação tag a tag
