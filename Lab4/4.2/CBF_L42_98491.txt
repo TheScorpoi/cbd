@@ -1,0 +1,94 @@
+// NMEC: 98491
+
+#1- Encontre todos os atores que dirigiram um filme em que também atuaram e apresente o nome do ator e o título do filme.
+match(n)-[:DIRECTED]->(movie)<-[:ACTED_IN]-(n)
+return n.name as atores_diretores, movie.title as titulo
+
+#2 - Para cada filme realizado depois de 2005, apresente os nomes de todos os atores que atuaram nesse filme.  
+match(ator)-[:ACTED_IN]->(film)
+where film.released > 2005
+with film, collect(ator) as Atores
+return Atores, film.title as Titulo 
+
+#3 - Encontre pares de nós com mais do que uma relação entre si.
+match (node1)-[relation]->(node2)
+with node1, node2, count(relation) as n_relations
+where n_relations > 1
+return node1 as NODE_1, node2 as NODE_2
+
+#4 - Encontre todos os pares de pessoas que fizeram revisões do mesmo filme. Apresente os seus nomes e título de cada filme. 
+match (person_1)-[:REVIEWED]->(movie)<-[:REVIEWED]-(person_2)
+return person_1, person_2, movie.title
+
+#5 - Encontre todos os pares de atores que atuaram em vários filmes juntos.
+match (actor_1)-[:ACTED_IN]->(movie)<-[:ACTED_IN]-(actor_2)
+WITH actor_1, actor_2, count(movie) as n_movies
+where n_movies > 1
+return actor_1.name, actor_2.name
+
+#6 - Determine a idade média do elenco do filme "Apollo 13" no ano do lançamento do filme. 
+match (actor)-[:ACTED_IN]->(movie)
+where movie.title = "Apollo 13"
+with movie.released - actor.born as date_diff
+return avg(date_diff) as avg_age
+
+#7 - Encontre os 10 filmes com o elenco mais velho no momento do lançamento do filme. Apresente o filme e a idade média arredondada a 2 casas decimais, por ordem decrescente.
+match (actor)-[:ACTED_IN]->(movie)
+with movie, avg( movie.released - actor.born) as date_diff
+return movie.title, date_diff
+order by date_diff desc
+limit 10
+
+#8 - Apresente o subgrafo ACTED_IN do filme com o elenco mais novo, no momento do lançamento do filme.
+match (actor)-[:ACTED_IN]->(movie)
+with movie, avg( movie.released - actor.born) as date_diff
+order by date_diff asc
+limit 1
+match (actor_)-[:ACTED_IN]->(movie_)
+where movie_ = movie
+return movie_, actor_
+
+#9 - Qual é o caminho mais curto (usando qualquer tipo de relação) entre John Cusack e Demi Moore?
+match shortpath = shortestPath((actor1{name: "John Cusack"})-[*]-(actor2{name:"Demi Moore"}))
+return shortpath
+
+#10 - Qual a dimensão caminho mais curto (usando qualquer tipo de relação) entre Keanu Reeves e Tom Cruise?
+match shortpath = shortestPath((actor1{name: "Keanu Reeves"})-[*]-(actor2{name:"Tom Cruise"}))
+return length(shortpath) as shortpath_dimension
+limit 1
+
+#11 - Quais são a dimensão do caminho mais curto entre pessoas com nome Jim e pessoas com nome Kevin?
+match shortpath = shortestPath((actor1)-[*]-(actor2))
+where actor1.name contains "Jim" and actor2.name contains "Kevin"
+return actor1, actor2, length(shortpath) as shortpath_dimension
+order by shortpath asc
+limit 1
+
+// duvida aqui no 12, na parte de comparar os id dos nodes
+#12 - Que pessoas têm uma distância 2 para Jim Cash (a distância entre duas pessoas é o comprimento do caminho mais curto entre eles)?
+match shortpath = shortestPath((actor1)-[*1..2]-(actor2{name: "Jim Cash"}))
+where length(shortpath) = 2 and id(actor1) < id (actor2)
+return  actor1.name
+
+#13 - Qual é a maior distância de uma pessoa para Kevin Bacon?
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
