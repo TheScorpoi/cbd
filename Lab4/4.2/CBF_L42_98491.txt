@@ -4,21 +4,237 @@
 match(n)-[:DIRECTED]->(movie)<-[:ACTED_IN]-(n)
 return n.name as atores_diretores, movie.title as titulo
 
+╒══════════════════╤═══════════════════╕
+│"atores_diretores"│"titulo"           │
+╞══════════════════╪═══════════════════╡
+│"Tom Hanks"       │"That Thing You Do"│
+├──────────────────┼───────────────────┤
+│"Clint Eastwood"  │"Unforgiven"       │
+├──────────────────┼───────────────────┤
+│"Danny DeVito"    │"Hoffa"            │
+├──────────────────┼───────────────────┤
+│"Tom Hanks"       │"That Thing You Do"│
+├──────────────────┼───────────────────┤
+│"Clint Eastwood"  │"Unforgiven"       │
+├──────────────────┼───────────────────┤
+│"Danny DeVito"    │"Hoffa"            │
+├──────────────────┼───────────────────┤
+│"Tom Hanks"       │"That Thing You Do"│
+├──────────────────┼───────────────────┤
+│"Clint Eastwood"  │"Unforgiven"       │
+├──────────────────┼───────────────────┤
+│"Danny DeVito"    │"Hoffa"            │
+└──────────────────┴───────────────────┘
+
 #2 - Para cada filme realizado depois de 2005, apresente os nomes de todos os atores que atuaram nesse filme.  
 match(ator)-[:ACTED_IN]->(film)
 where film.released > 2005
-with film, collect(ator) as Atores
+with film, collect(ator.name) as Atores
 return Atores, film.title as Titulo 
+
+╒══════════════════════════════════════════════════════════════════════╤══════════════════════╕
+│"Atores"                                                              │"Titulo"              │
+╞══════════════════════════════════════════════════════════════════════╪══════════════════════╡
+│["Zach Grenier","Steve Zahn","Christian Bale","Marshall Bell"]        │"RescueDawn"          │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Tom Hanks","Jim Broadbent","Halle Berry","Hugo Weaving"]            │"Cloud Atlas"         │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Audrey Tautou","Tom Hanks","Ian McKellen","Paul Bettany"]           │"The Da Vinci Code"   │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Ben Miles","Natalie Portman","John Hurt","Stephen Rea","Hugo Weaving│"V for Vendetta"      │
+│"]                                                                    │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Susan Sarandon","Ben Miles","John Goodman","Christina Ricci","Matthe│"Speed Racer"         │
+│w Fox","Rain","Emile Hirsch"]                                         │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Naomie Harris","Rain","Rick Yune","Ben Miles"]                      │"Ninja Assassin"      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Oliver Platt","Frank Langella","Kevin Bacon","Michael Sheen","Sam Ro│"Frost/Nixon"         │
+│ckwell"]                                                              │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Tom Hanks","Julia Roberts","Philip Seymour Hoffman"]                │"Charlie Wilson's War"│
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Christian Bale","Marshall Bell","Zach Grenier","Steve Zahn"]        │"RescueDawn"          │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Hugo Weaving","Halle Berry","Jim Broadbent","Tom Hanks"]            │"Cloud Atlas"         │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Tom Hanks","Audrey Tautou","Ian McKellen","Paul Bettany"]           │"The Da Vinci Code"   │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Hugo Weaving","Natalie Portman","Ben Miles","John Hurt","Stephen Rea│"V for Vendetta"      │
+│"]                                                                    │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Christina Ricci","Matthew Fox","Emile Hirsch","John Goodman","Susan │"Speed Racer"         │
+│Sarandon","Rain","Ben Miles"]                                         │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Rain","Ben Miles","Rick Yune","Naomie Harris"]                      │"Ninja Assassin"      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Frank Langella","Sam Rockwell","Oliver Platt","Michael Sheen","Kevin│"Frost/Nixon"         │
+│ Bacon"]                                                              │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Philip Seymour Hoffman","Tom Hanks","Julia Roberts"]                │"Charlie Wilson's War"│
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Sun-kyun Lee","Yeo-jeong Jo","So-dam Park","Woo-sik Choi","Kang-ho S│"Parasite"            │
+│ong"]                                                                 │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Joaquin Phoenix","Robert De Niro","Zazie Beetz"]                    │"Joker"               │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Steve Zahn","Christian Bale","Zach Grenier","Marshall Bell"]        │"RescueDawn"          │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Halle Berry","Tom Hanks","Jim Broadbent","Hugo Weaving"]            │"Cloud Atlas"         │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Tom Hanks","Ian McKellen","Audrey Tautou","Paul Bettany"]           │"The Da Vinci Code"   │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Ben Miles","Hugo Weaving","Stephen Rea","John Hurt","Natalie Portman│"V for Vendetta"      │
+│"]                                                                    │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Christina Ricci","Emile Hirsch","Matthew Fox","Rain","Ben Miles","Su│"Speed Racer"         │
+│san Sarandon","John Goodman"]                                         │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Ben Miles","Rick Yune","Rain","Naomie Harris"]                      │"Ninja Assassin"      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Michael Sheen","Sam Rockwell","Oliver Platt","Frank Langella","Kevin│"Frost/Nixon"         │
+│ Bacon"]                                                              │                      │
+├──────────────────────────────────────────────────────────────────────┼──────────────────────┤
+│["Tom Hanks","Julia Roberts","Philip Seymour Hoffman"]                │"Charlie Wilson's War"│
+└──────────────────────────────────────────────────────────────────────┴──────────────────────┘
 
 #3 - Encontre pares de nós com mais do que uma relação entre si.
 match (node1)-[relation]->(node2)
 with node1, node2, count(relation) as n_relations
 where n_relations > 1
-return node1 as NODE_1, node2 as NODE_2
+return node1.name as person, node2.title as movie
+
+╒═════════════════╤════════════════════════╕
+│"person"         │"movie"                 │
+╞═════════════════╪════════════════════════╡
+│"Andy Wachowski" │"Speed Racer"           │
+├─────────────────┼────────────────────────┤
+│"Andy Wachowski" │"V for Vendetta"        │
+├─────────────────┼────────────────────────┤
+│"Lana Wachowski" │"Speed Racer"           │
+├─────────────────┼────────────────────────┤
+│"Lana Wachowski" │"V for Vendetta"        │
+├─────────────────┼────────────────────────┤
+│"Rob Reiner"     │"When Harry Met Sally"  │
+├─────────────────┼────────────────────────┤
+│"Aaron Sorkin"   │"A Few Good Men"        │
+├─────────────────┼────────────────────────┤
+│"Cameron Crowe"  │"Jerry Maguire"         │
+├─────────────────┼────────────────────────┤
+│"Tom Hanks"      │"That Thing You Do"     │
+├─────────────────┼────────────────────────┤
+│"Nora Ephron"    │"When Harry Met Sally"  │
+├─────────────────┼────────────────────────┤
+│"Clint Eastwood" │"Unforgiven"            │
+├─────────────────┼────────────────────────┤
+│"Danny DeVito"   │"Hoffa"                 │
+├─────────────────┼────────────────────────┤
+│"Nancy Meyers"   │"Something's Gotta Give"│
+├─────────────────┼────────────────────────┤
+│"Andy Wachowski" │"Speed Racer"           │
+├─────────────────┼────────────────────────┤
+│"Andy Wachowski" │"V for Vendetta"        │
+├─────────────────┼────────────────────────┤
+│"Lana Wachowski" │"V for Vendetta"        │
+├─────────────────┼────────────────────────┤
+│"Lana Wachowski" │"Speed Racer"           │
+├─────────────────┼────────────────────────┤
+│"Rob Reiner"     │"When Harry Met Sally"  │
+├─────────────────┼────────────────────────┤
+│"Aaron Sorkin"   │"A Few Good Men"        │
+├─────────────────┼────────────────────────┤
+│"Cameron Crowe"  │"Jerry Maguire"         │
+├─────────────────┼────────────────────────┤
+│"Tom Hanks"      │"That Thing You Do"     │
+├─────────────────┼────────────────────────┤
+│"Nora Ephron"    │"When Harry Met Sally"  │
+├─────────────────┼────────────────────────┤
+│"Clint Eastwood" │"Unforgiven"            │
+├─────────────────┼────────────────────────┤
+│"Danny DeVito"   │"Hoffa"                 │
+├─────────────────┼────────────────────────┤
+│"Nancy Meyers"   │"Something's Gotta Give"│
+├─────────────────┼────────────────────────┤
+│"Lilly Wachowski"│"Speed Racer"           │
+├─────────────────┼────────────────────────┤
+│"Lilly Wachowski"│"V for Vendetta"        │
+├─────────────────┼────────────────────────┤
+│"Lana Wachowski" │"Speed Racer"           │
+├─────────────────┼────────────────────────┤
+│"Lana Wachowski" │"V for Vendetta"        │
+├─────────────────┼────────────────────────┤
+│"Rob Reiner"     │"When Harry Met Sally"  │
+├─────────────────┼────────────────────────┤
+│"Aaron Sorkin"   │"A Few Good Men"        │
+├─────────────────┼────────────────────────┤
+│"Cameron Crowe"  │"Jerry Maguire"         │
+├─────────────────┼────────────────────────┤
+│"Tom Hanks"      │"That Thing You Do"     │
+├─────────────────┼────────────────────────┤
+│"Nora Ephron"    │"When Harry Met Sally"  │
+├─────────────────┼────────────────────────┤
+│"Clint Eastwood" │"Unforgiven"            │
+├─────────────────┼────────────────────────┤
+│"Danny DeVito"   │"Hoffa"                 │
+├─────────────────┼────────────────────────┤
+│"Nancy Meyers"   │"Something's Gotta Give"│
+└─────────────────┴────────────────────────┘
 
 #4 - Encontre todos os pares de pessoas que fizeram revisões do mesmo filme. Apresente os seus nomes e título de cada filme. 
 match (person_1)-[:REVIEWED]->(movie)<-[:REVIEWED]-(person_2)
-return person_1, person_2, movie.title
+return person_1.name, person_2.name, movie.title
+
+╒══════════════════╤══════════════════╤═══════════════════╕
+│"person_1.name"   │"person_2.name"   │"movie.title"      │
+╞══════════════════╪══════════════════╪═══════════════════╡
+│"Angela Scope"    │"Jessica Thompson"│"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Jessica Thompson"│"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Angela Scope"    │"James Thompson"  │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"James Thompson"  │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Angela Scope"    │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"Angela Scope"    │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Jessica Thompson"│"The Da Vinci Code"│
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"James Thompson"  │"The Da Vinci Code"│
+├──────────────────┼──────────────────┼───────────────────┤
+│"Angela Scope"    │"Jessica Thompson"│"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Jessica Thompson"│"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Angela Scope"    │"James Thompson"  │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"James Thompson"  │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Angela Scope"    │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"Angela Scope"    │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Jessica Thompson"│"The Da Vinci Code"│
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"James Thompson"  │"The Da Vinci Code"│
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Jessica Thompson"│"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Angela Scope"    │"Jessica Thompson"│"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Angela Scope"    │"James Thompson"  │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"James Thompson"  │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Angela Scope"    │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"Angela Scope"    │"The Replacements" │
+├──────────────────┼──────────────────┼───────────────────┤
+│"James Thompson"  │"Jessica Thompson"│"The Da Vinci Code"│
+├──────────────────┼──────────────────┼───────────────────┤
+│"Jessica Thompson"│"James Thompson"  │"The Da Vinci Code"│
+└──────────────────┴──────────────────┴───────────────────┘
 
 #5 - Encontre todos os pares de atores que atuaram em vários filmes juntos.
 match (actor_1)-[:ACTED_IN]->(movie)<-[:ACTED_IN]-(actor_2)
@@ -26,11 +242,201 @@ WITH actor_1, actor_2, count(movie) as n_movies
 where n_movies > 1
 return actor_1.name, actor_2.name
 
+╒════════════════════╤════════════════════╕
+│"actor_1.name"      │"actor_2.name"      │
+╞════════════════════╪════════════════════╡
+│"Laurence Fishburne"│"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"J.T. Walsh"        │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"Cuba Gooding Jr."  │
+├────────────────────┼────────────────────┤
+│"Tom Cruise"        │"Cuba Gooding Jr."  │
+├────────────────────┼────────────────────┤
+│"J.T. Walsh"        │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Cuba Gooding Jr."  │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Cuba Gooding Jr."  │"Tom Cruise"        │
+├────────────────────┼────────────────────┤
+│"Meg Ryan"          │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Meg Ryan"          │
+├────────────────────┼────────────────────┤
+│"Rosie O'Donnell"   │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Rosie O'Donnell"   │
+├────────────────────┼────────────────────┤
+│"Rain"              │"Ben Miles"         │
+├────────────────────┼────────────────────┤
+│"Ben Miles"         │"Rain"              │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Gary Sinise"       │
+├────────────────────┼────────────────────┤
+│"Gary Sinise"       │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Danny DeVito"      │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"Danny DeVito"      │
+├────────────────────┼────────────────────┤
+│"Bill Paxton"       │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Bill Paxton"       │
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Cuba Gooding Jr."  │"Tom Cruise"        │
+├────────────────────┼────────────────────┤
+│"J.T. Walsh"        │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Cuba Gooding Jr."  │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"J.T. Walsh"        │
+├────────────────────┼────────────────────┤
+│"Tom Cruise"        │"Cuba Gooding Jr."  │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"Cuba Gooding Jr."  │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Meg Ryan"          │
+├────────────────────┼────────────────────┤
+│"Meg Ryan"          │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Rosie O'Donnell"   │
+├────────────────────┼────────────────────┤
+│"Rosie O'Donnell"   │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Ben Miles"         │"Rain"              │
+├────────────────────┼────────────────────┤
+│"Rain"              │"Ben Miles"         │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Gary Sinise"       │
+├────────────────────┼────────────────────┤
+│"Gary Sinise"       │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"Danny DeVito"      │
+├────────────────────┼────────────────────┤
+│"Danny DeVito"      │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Bill Paxton"       │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Bill Paxton"       │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Hugo Weaving"      │
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Laurence Fishburne"│
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Carrie-Anne Moss"  │"Keanu Reeves"      │
+├────────────────────┼────────────────────┤
+│"Hugo Weaving"      │"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Laurence Fishburne"│"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Keanu Reeves"      │"Carrie-Anne Moss"  │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"J.T. Walsh"        │
+├────────────────────┼────────────────────┤
+│"Tom Cruise"        │"Cuba Gooding Jr."  │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"Cuba Gooding Jr."  │
+├────────────────────┼────────────────────┤
+│"Cuba Gooding Jr."  │"Tom Cruise"        │
+├────────────────────┼────────────────────┤
+│"J.T. Walsh"        │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Cuba Gooding Jr."  │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Meg Ryan"          │
+├────────────────────┼────────────────────┤
+│"Meg Ryan"          │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Rosie O'Donnell"   │
+├────────────────────┼────────────────────┤
+│"Rosie O'Donnell"   │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Ben Miles"         │"Rain"              │
+├────────────────────┼────────────────────┤
+│"Rain"              │"Ben Miles"         │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Gary Sinise"       │
+├────────────────────┼────────────────────┤
+│"Gary Sinise"       │"Tom Hanks"         │
+├────────────────────┼────────────────────┤
+│"Jack Nicholson"    │"Danny DeVito"      │
+├────────────────────┼────────────────────┤
+│"Danny DeVito"      │"Jack Nicholson"    │
+├────────────────────┼────────────────────┤
+│"Tom Hanks"         │"Bill Paxton"       │
+├────────────────────┼────────────────────┤
+│"Bill Paxton"       │"Tom Hanks"         │
+└────────────────────┴────────────────────┘
+
 #6 - Determine a idade média do elenco do filme "Apollo 13" no ano do lançamento do filme. 
 match (actor)-[:ACTED_IN]->(movie)
 where movie.title = "Apollo 13"
 with movie.released - actor.born as date_diff
 return avg(date_diff) as avg_age
+
+╒═════════╕
+│"avg_age"│
+╞═════════╡
+│40.2     │
+└─────────┘
 
 #7 - Encontre os 10 filmes com o elenco mais velho no momento do lançamento do filme. Apresente o filme e a idade média arredondada a 2 casas decimais, por ordem decrescente.
 match (actor)-[:ACTED_IN]->(movie)
@@ -38,6 +444,30 @@ with movie, avg( movie.released - actor.born) as date_diff
 return movie.title, date_diff
 order by date_diff desc
 limit 10
+
+╒════════════════════════╤═══════════╕
+│"movie.title"           │"date_diff"│
+╞════════════════════════╪═══════════╡
+│"Joker"                 │null       │
+├────────────────────────┼───────────┤
+│"Parasite"              │null       │
+├────────────────────────┼───────────┤
+│"Unforgiven"            │62.0       │
+├────────────────────────┼───────────┤
+│"Unforgiven"            │62.0       │
+├────────────────────────┼───────────┤
+│"Unforgiven"            │62.0       │
+├────────────────────────┼───────────┤
+│"Cloud Atlas"           │54.25      │
+├────────────────────────┼───────────┤
+│"Cloud Atlas"           │54.25      │
+├────────────────────────┼───────────┤
+│"Cloud Atlas"           │54.25      │
+├────────────────────────┼───────────┤
+│"Something's Gotta Give"│54.0       │
+├────────────────────────┼───────────┤
+│"Something's Gotta Give"│54.0       │
+└────────────────────────┴───────────┘
 
 #8 - Apresente o subgrafo ACTED_IN do filme com o elenco mais novo, no momento do lançamento do filme.
 match (actor)-[:ACTED_IN]->(movie)
@@ -48,47 +478,258 @@ match (actor_)-[:ACTED_IN]->(movie_)
 where movie_ = movie
 return movie_, actor_
 
+╒══════════════════════════════════════════════════════════════════════╤════════════════════════════════════════╕
+│"movie_"                                                              │"actor_"                                │
+╞══════════════════════════════════════════════════════════════════════╪════════════════════════════════════════╡
+│{"tagline":"For some, it's the last real taste of innocence, and the f│{"born":1974,"name":"Jerry O'Connell"}  │
+│irst real taste of life. But for everyone, it's the time that memories│                                        │
+│ are made of.","title":"Stand By Me","released":1986}                 │                                        │
+├──────────────────────────────────────────────────────────────────────┼────────────────────────────────────────┤
+│{"tagline":"For some, it's the last real taste of innocence, and the f│{"born":1970,"name":"River Phoenix"}    │
+│irst real taste of life. But for everyone, it's the time that memories│                                        │
+│ are made of.","title":"Stand By Me","released":1986}                 │                                        │
+├──────────────────────────────────────────────────────────────────────┼────────────────────────────────────────┤
+│{"tagline":"For some, it's the last real taste of innocence, and the f│{"born":1942,"name":"Marshall Bell"}    │
+│irst real taste of life. But for everyone, it's the time that memories│                                        │
+│ are made of.","title":"Stand By Me","released":1986}                 │                                        │
+├──────────────────────────────────────────────────────────────────────┼────────────────────────────────────────┤
+│{"tagline":"For some, it's the last real taste of innocence, and the f│{"born":1972,"name":"Wil Wheaton"}      │
+│irst real taste of life. But for everyone, it's the time that memories│                                        │
+│ are made of.","title":"Stand By Me","released":1986}                 │                                        │
+├──────────────────────────────────────────────────────────────────────┼────────────────────────────────────────┤
+│{"tagline":"For some, it's the last real taste of innocence, and the f│{"born":1966,"name":"Kiefer Sutherland"}│
+│irst real taste of life. But for everyone, it's the time that memories│                                        │
+│ are made of.","title":"Stand By Me","released":1986}                 │                                        │
+├──────────────────────────────────────────────────────────────────────┼────────────────────────────────────────┤
+│{"tagline":"For some, it's the last real taste of innocence, and the f│{"born":1966,"name":"John Cusack"}      │
+│irst real taste of life. But for everyone, it's the time that memories│                                        │
+│ are made of.","title":"Stand By Me","released":1986}                 │                                        │
+├──────────────────────────────────────────────────────────────────────┼────────────────────────────────────────┤
+│{"tagline":"For some, it's the last real taste of innocence, and the f│{"born":1971,"name":"Corey Feldman"}    │
+│irst real taste of life. But for everyone, it's the time that memories│                                        │
+│ are made of.","title":"Stand By Me","released":1986}                 │                                        │
+└──────────────────────────────────────────────────────────────────────┴────────────────────────────────────────┘
+
 #9 - Qual é o caminho mais curto (usando qualquer tipo de relação) entre John Cusack e Demi Moore?
 match shortpath = shortestPath((actor1{name: "John Cusack"})-[*]-(actor2{name:"Demi Moore"}))
 return shortpath
+
+╒══════════════════════════════════════════════════════════════════════╕
+│"shortpath"                                                           │
+╞══════════════════════════════════════════════════════════════════════╡
+│[{"born":1966,"name":"John Cusack"},{"roles":["Denny Lachance"]},{"tag│
+│line":"For some, it's the last real taste of innocence, and the first │
+│real taste of life. But for everyone, it's the time that memories are │
+│made of.","title":"Stand By Me","released":1986},{"tagline":"For some,│
+│ it's the last real taste of innocence, and the first real taste of li│
+│fe. But for everyone, it's the time that memories are made of.","title│
+│":"Stand By Me","released":1986},{},{"born":1947,"name":"Rob Reiner"},│
+│{"born":1947,"name":"Rob Reiner"},{},{"tagline":"In the heart of the n│
+│ation's capital, in a courthouse of the U.S. government, one man will │
+│stop at nothing to keep his honor, and one will stop at nothing to fin│
+│d the truth.","title":"A Few Good Men","released":1992},{"tagline":"In│
+│ the heart of the nation's capital, in a courthouse of the U.S. govern│
+│ment, one man will stop at nothing to keep his honor, and one will sto│
+│p at nothing to find the truth.","title":"A Few Good Men","released":1│
+│992},{"roles":["Lt. Cdr. JoAnne Galloway"]},{"born":1962,"name":"Demi │
+│Moore"}]                                                              │
+├──────────────────────────────────────────────────────────────────────┤
+│[{"born":1966,"name":"John Cusack"},{"roles":["Denny Lachance"]},{"tag│
+│line":"For some, it's the last real taste of innocence, and the first │
+│real taste of life. But for everyone, it's the time that memories are │
+│made of.","title":"Stand By Me","released":1986},{"tagline":"For some,│
+│ it's the last real taste of innocence, and the first real taste of li│
+│fe. But for everyone, it's the time that memories are made of.","title│
+│":"Stand By Me","released":1986},{},{"born":1947,"name":"Rob Reiner"},│
+│{"born":1947,"name":"Rob Reiner"},{},{"tagline":"In the heart of the n│
+│ation's capital, in a courthouse of the U.S. government, one man will │
+│stop at nothing to keep his honor, and one will stop at nothing to fin│
+│d the truth.","title":"A Few Good Men","released":1992},{"tagline":"In│
+│ the heart of the nation's capital, in a courthouse of the U.S. govern│
+│ment, one man will stop at nothing to keep his honor, and one will sto│
+│p at nothing to find the truth.","title":"A Few Good Men","released":1│
+│992},{"roles":["Lt. Cdr. JoAnne Galloway"]},{"born":1962,"name":"Demi │
+│Moore"}]                                                              │
+├──────────────────────────────────────────────────────────────────────┤
+│[{"born":1966,"name":"John Cusack"},{"roles":["Denny Lachance"]},{"tag│
+│line":"For some, it's the last real taste of innocence, and the first │
+│real taste of life. But for everyone, it's the time that memories are │
+│made of.","title":"Stand By Me","released":1986},{"tagline":"For some,│
+│ it's the last real taste of innocence, and the first real taste of li│
+│fe. But for everyone, it's the time that memories are made of.","title│
+│":"Stand By Me","released":1986},{},{"born":1947,"name":"Rob Reiner"},│
+│{"born":1947,"name":"Rob Reiner"},{},{"tagline":"In the heart of the n│
+│ation's capital, in a courthouse of the U.S. government, one man will │
+│stop at nothing to keep his honor, and one will stop at nothing to fin│
+│d the truth.","title":"A Few Good Men","released":1992},{"tagline":"In│
+│ the heart of the nation's capital, in a courthouse of the U.S. govern│
+│ment, one man will stop at nothing to keep his honor, and one will sto│
+│p at nothing to find the truth.","title":"A Few Good Men","released":1│
+│992},{"roles":["Lt. Cdr. JoAnne Galloway"]},{"born":1962,"name":"Demi │
+│Moore"}]                                                              │
+└──────────────────────────────────────────────────────────────────────┘
 
 #10 - Qual a dimensão caminho mais curto (usando qualquer tipo de relação) entre Keanu Reeves e Tom Cruise?
 match shortpath = shortestPath((actor1{name: "Keanu Reeves"})-[*]-(actor2{name:"Tom Cruise"}))
 return length(shortpath) as shortpath_dimension
 limit 1
 
+╒═════════════════════╕
+│"shortpath_dimension"│
+╞═════════════════════╡
+│4                    │
+└─────────────────────┘
+
 #11 - Quais são a dimensão do caminho mais curto entre pessoas com nome Jim e pessoas com nome Kevin?
 match shortpath = shortestPath((actor1)-[*]-(actor2))
 where actor1.name contains "Jim" and actor2.name contains "Kevin"
-return actor1, actor2, length(shortpath) as shortpath_dimension
+return actor1.name, actor2.name, length(shortpath) as shortpath_dimension
 order by shortpath asc
 limit 1
 
-// duvida aqui no 12, na parte de comparar os id dos nodes
+╒═════════════╤═════════════╤═════════════════════╕
+│"actor1.name"│"actor2.name"│"shortpath_dimension"│
+╞═════════════╪═════════════╪═════════════════════╡
+│"Jim Cash"   │"Kevin Bacon"│4                    │
+└─────────────┴─────────────┴─────────────────────┘
+
 #12 - Que pessoas têm uma distância 2 para Jim Cash (a distância entre duas pessoas é o comprimento do caminho mais curto entre eles)?
 match shortpath = shortestPath((actor1)-[*1..2]-(actor2{name: "Jim Cash"}))
-where length(shortpath) = 2 and id(actor1) < id (actor2)
+where length(shortpath) = 2 and actor1 <> actor2
 return  actor1.name
 
+╒═════════════════╕
+│"actor1.name"    │
+╞═════════════════╡
+│"Tom Cruise"     │
+├─────────────────┤
+│"Kelly McGillis" │
+├─────────────────┤
+│"Val Kilmer"     │
+├─────────────────┤
+│"Anthony Edwards"│
+├─────────────────┤
+│"Tom Skerritt"   │
+├─────────────────┤
+│"Meg Ryan"       │
+├─────────────────┤
+│"Tony Scott"     │
+├─────────────────┤
+│"Tom Cruise"     │
+├─────────────────┤
+│"Kelly McGillis" │
+├─────────────────┤
+│"Val Kilmer"     │
+├─────────────────┤
+│"Anthony Edwards"│
+├─────────────────┤
+│"Tom Skerritt"   │
+├─────────────────┤
+│"Meg Ryan"       │
+├─────────────────┤
+│"Tony Scott"     │
+├─────────────────┤
+│"Tom Cruise"     │
+├─────────────────┤
+│"Kelly McGillis" │
+├─────────────────┤
+│"Val Kilmer"     │
+├─────────────────┤
+│"Anthony Edwards"│
+├─────────────────┤
+│"Tom Skerritt"   │
+├─────────────────┤
+│"Meg Ryan"       │
+├─────────────────┤
+│"Tony Scott"     │
+└─────────────────┘
+
 #13 - Qual é a maior distância de uma pessoa para Kevin Bacon?
+match shorthpath = shortestPath((person1)-[*]-(person2{name: "Kevin Bacon"}))
+where person1 <> person2
+return person1.name as nome, length(shorthpath) as caminho_maior
+order by caminho_maior desc
+limit 1
 
+╒══════════════════╤═══════════════╕
+│"nome"            │"caminho_maior"│
+╞══════════════════╪═══════════════╡
+│"Carrie-Anne Moss"│6              │
+└──────────────────┴───────────────┘
 
+#14 - Qual é a maior distância entre duas pessoas?
+match shorthpath = shortestPath((person1)-[*]-(person2))
+where person1 <> person2
+return person1.name as nome, length(shorthpath) as caminho_maior
+order by caminho_maior desc
+limit 1
 
+╒═══════════════╤═══════════════╕
+│"nome"         │"caminho_maior"│
+╞═══════════════╪═══════════════╡
+│"River Phoenix"│10             │
+└───────────────┴───────────────┘
 
+#15 - Qual é a distribuição de distâncias em pares (isto é, para a distância 1, 2, 3, ..., quantos pares de pessoas têm essa distância um do outro)? 
+match path = shortestPath((person1:Person)-[*]-(person2:Person))
+where person1 <> person2
+with length(path) as distancia
+return distancia, count(distancia) as quantidade_pares
+order by distancia 
 
+╒═══════════╤══════════════════╕
+│"distancia"│"quantidade_pares"│
+╞═══════════╪══════════════════╡
+│1          │18                │
+├───────────┼──────────────────┤
+│2          │3746              │
+├───────────┼──────────────────┤
+│3          │246               │
+├───────────┼──────────────────┤
+│4          │17396             │
+├───────────┼──────────────────┤
+│5          │590               │
+├───────────┼──────────────────┤
+│6          │23558             │
+├───────────┼──────────────────┤
+│7          │162               │
+├───────────┼──────────────────┤
+│8          │5854              │
+├───────────┼──────────────────┤
+│9          │16                │
+├───────────┼──────────────────┤
+│10         │56                │
+└───────────┴──────────────────┘
 
+#16 - Indique as 10 pessoas com menor distância média em que o caminho entre elas são relações do tipo ACTED_IN. 
+match path = shortestPath((person1:Person)-[:ACTED_IN*]-(person2:Person))
+where person1 <> person2
+with   avg(length(path))as media, person1, person2
+return person1.name as person1, person2.name as person2, media
+order by media asc
+limit 10
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+╒══════════════╤════════════════════╤═══════╕
+│"person1"     │"person2"           │"media"│
+╞══════════════╪════════════════════╪═══════╡
+│"Keanu Reeves"│"Brooke Langton"    │2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Gene Hackman"      │2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Laurence Fishburne"│2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Carrie-Anne Moss"  │2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Al Pacino"         │2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Hugo Weaving"      │2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Jack Nicholson"    │2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Emil Eifrem"       │2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Charlize Theron"   │2.0    │
+├──────────────┼────────────────────┼───────┤
+│"Keanu Reeves"│"Orlando Jones"     │2.0    │
+└──────────────┴────────────────────┴───────┘
 
