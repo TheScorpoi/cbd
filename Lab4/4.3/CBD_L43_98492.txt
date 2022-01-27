@@ -1,0 +1,335 @@
+// NMEC: 98491
+
+a) 
+#https://neo4j.com/developer/desktop-csv-import/ - como fazer o import do csv para o neo4j
+
+b)
+Utilizador: num, svn_id, real_name, organization
+Projeto: nome
+A relação entre Utilizador e o Projeto: WORKS_ON
+
+#neo4j cypher
+LOAD CSV WITH HEADERS FROM 'file:///git_selection.csv' AS row
+MERGE (u:Utilizador {num: toInteger(row.num), svn_id: row.svn_id, real_name: row.real_name, organization: row.organization})
+MERGE (p:Projeto {name: row.project_name})
+MERGE (u)-[r:WORKS_ON {role: row.role_on_project}]->(p);
+
+c)
+#1 - Liste a informação de cada utilizador.
+
+match(u:Utilizador)
+return u as Utilizador
+
+╒══════════════════════════════════════════════════════════════════════╕
+│"Utilizador"                                                          │
+╞══════════════════════════════════════════════════════════════════════╡
+│{"svn_id":"aa0380","num":380,"organization":"IBM","real_name":"Aaron M│
+│ulder"}                                                               │
+├──────────────────────────────────────────────────────────────────────┤
+│{"svn_id":"ammulder","num":2234,"organization":"Chariot Solutions","re│
+│al_name":"Aaron Mulder"}                                              │
+├──────────────────────────────────────────────────────────────────────┤
+│{"svn_id":"ammulder","num":7,"organization":"Chariot Solutions","real_│
+│name":"Aaron Mulder"}                                                 │
+├──────────────────────────────────────────────────────────────────────┤
+│{"svn_id":"ammulder","num":912,"organization":"Chariot Solutions","rea│
+│l_name":"Aaron Mulder"}                                               │
+├──────────────────────────────────────────────────────────────────────┤
+│{"svn_id":"ammulder","num":1206,"organization":"Chariot Solutions","re│
+│al_name":"Aaron Mulder"}                                              │
+├──────────────────────────────────────────────────────────────────────┤
+(O resultado tinha um total de milhares de linhas, por isso não o coloquei todo)
+
+#2 - Liste o nome de cada utilizador. 
+
+match(u:Utilizador)
+return distinct u.real_name as Nome
+
+╒═══════════════════════════════════╕
+│"Nome"                             │
+╞═══════════════════════════════════╡
+│"Aaron Mulder"                     │
+├───────────────────────────────────┤
+│"Aaron T. Myers"                   │
+├───────────────────────────────────┤
+│"Abe White"                        │
+├───────────────────────────────────┤
+│"Abraham Elmahrek"                 │
+├───────────────────────────────────┤
+│"Abraham Fine"                     │
+├───────────────────────────────────┤
+│"abrown"                           │
+├───────────────────────────────────┤
+│"Achim Nierbeck"                   │
+├───────────────────────────────────┤
+│"Adam Wojtuniak"                   │
+├───────────────────────────────────┤
+│"Adrian Cole"                      │
+├───────────────────────────────────┤
+│"Adrian Sutton"                    │
+├───────────────────────────────────┤
+│"Afkham Azeez"                     │
+├───────────────────────────────────┤
+│"Aihua Xu"                         │
+├───────────────────────────────────┤
+
+
+#3 - Liste a informação de cada projeto, no qual tenha participado pelo menos um utilizador.
+
+match(u:Utilizador)-[*]-(p:Projeto)
+return distinct p as Project_Name
+
+╒═══════════════════════════════════════╕
+│"Project_Name"                         │
+╞═══════════════════════════════════════╡
+│{"name":"Apache Geronimo"}             │
+├───────────────────────────────────────┤
+│{"name":"Geronimo"}                    │
+├───────────────────────────────────────┤
+│{"name":"ActiveMQ"}                    │
+├───────────────────────────────────────┤
+│{"name":"Apache ActiveMQ"}             │
+├───────────────────────────────────────┤
+│{"name":"Apache Camel"}                │
+├───────────────────────────────────────┤
+│{"name":"Camel"}                       │
+├───────────────────────────────────────┤
+│{"name":"Apache Hadoop"}               │
+├───────────────────────────────────────┤
+│{"name":"Hadoop"}                      │
+├───────────────────────────────────────┤
+│{"name":"Apache OpenJPA"}              │
+├───────────────────────────────────────┤
+│{"name":"OpenJPA"}                     │
+├───────────────────────────────────────┤
+│{"name":"Sqoop"}                       │
+├───────────────────────────────────────┤
+│{"name":"Db"}                          │
+├───────────────────────────────────────┤
+
+#4 - Liste os utilizadores e total de projetos em que cada um colabora
+
+match (u:Utilizador)-[*]->()
+with u.svn_id as id_user, count(*) as contador
+return id_user, contador
+
+╒══════════════════════╤══════════╕
+│"id_user"             │"contador"│
+╞══════════════════════╪══════════╡
+│"aa0380"              │1         │
+├──────────────────────┼──────────┤
+│"ammulder"            │8         │
+├──────────────────────┼──────────┤
+│"atm"                 │5         │
+├──────────────────────┼──────────┤
+│"ab0625"              │1         │
+├──────────────────────┼──────────┤
+│"ab0633"              │1         │
+├──────────────────────┼──────────┤
+│"ab1632"              │1         │
+├──────────────────────┼──────────┤
+│"ab1651"              │1         │
+├──────────────────────┼──────────┤
+│"ab2578"              │1         │
+├──────────────────────┼──────────┤
+│"abe"                 │1         │
+├──────────────────────┼──────────┤
+│"afine"               │1         │
+├──────────────────────┼──────────┤
+
+#5 - Liste os utilizadores e do total de projetos em que cada colabora ordenados por ordem decrescente do total.
+
+match (u:Utilizador)-[*]->()
+with u.svn_id as id_user, count(*) as contador
+return id_user, contador
+order by contador desc
+
+╒════════════════════╤══════════╕
+│"id_user"           │"contador"│
+╞════════════════════╪══════════╡
+│"djencks"           │26        │
+├────────────────────┼──────────┤
+│"jstrachan"         │24        │
+├────────────────────┼──────────┤
+│"dlr"               │20        │
+├────────────────────┼──────────┤
+│"gnodet"            │19        │
+├────────────────────┼──────────┤
+│"jbonofre"          │19        │
+├────────────────────┼──────────┤
+│"omalley"           │18        │
+├────────────────────┼──────────┤
+│"ddas"              │16        │
+├────────────────────┼──────────┤
+│"iocanel"           │16        │
+├────────────────────┼──────────┤
+│"tomwhite"          │15        │
+├────────────────────┼──────────┤
+│"wglass"            │14        │
+├────────────────────┼──────────┤
+│"gates"             │14        │
+├────────────────────┼──────────┤
+│"chirino"           │14        │
+├────────────────────┼──────────┤
+│"dwoods"            │13        │
+├────────────────────┼──────────┤
+│"enis"              │13        │
+├────────────────────┼──────────┤
+
+#6 - Liste projetos e total de membros em cada projeto.
+
+match (p:Projeto)-[*]-(u:Utilizador)
+with p, count(*) as contador
+return p.name as Projeto, contador as contador
+
+╒══════════════════════════════╤══════════╕
+│"Projeto"                     │"contador"│
+╞══════════════════════════════╪══════════╡
+│"Apache Geronimo"             │117       │
+├──────────────────────────────┼──────────┤
+│"Geronimo"                    │42        │
+├──────────────────────────────┼──────────┤
+│"ActiveMQ"                    │82        │
+├──────────────────────────────┼──────────┤
+│"Apache ActiveMQ"             │27        │
+├──────────────────────────────┼──────────┤
+│"Apache Camel"                │87        │
+├──────────────────────────────┼──────────┤
+│"Camel"                       │52        │
+├──────────────────────────────┼──────────┤
+│"Apache Hadoop"               │186       │
+├──────────────────────────────┼──────────┤
+│"Hadoop"                      │75        │
+├──────────────────────────────┼──────────┤
+│"Apache OpenJPA"              │54        │
+├──────────────────────────────┼──────────┤
+│"OpenJPA"                     │20        │
+├──────────────────────────────┼──────────┤
+│"Sqoop"                       │15        │
+├──────────────────────────────┼──────────┤
+│"Db"                          │22        │
+├──────────────────────────────┼──────────┤
+│"Apache Karaf"                │42        │
+├──────────────────────────────┼──────────┤
+│"Apache Aries"                │74        │
+├──────────────────────────────┼──────────┤
+│"Aries"                       │40        │
+├──────────────────────────────┼──────────┤
+
+#7 - Liste projetos e total de membros com a role "Committer" em cada projeto. 
+
+match (p:Projeto)-[:WORKS_ON{role:"Committer"}]-(u:Utilizador)
+with p, count(*) as contador
+return p.name as Projeto, contador as contador
+
+╒══════════════════════════════╤══════════╕
+│"Projeto"                     │"contador"│
+╞══════════════════════════════╪══════════╡
+│"Apache Geronimo"             │87        │
+├──────────────────────────────┼──────────┤
+│"ActiveMQ"                    │27        │
+├──────────────────────────────┼──────────┤
+│"Apache ActiveMQ"             │27        │
+├──────────────────────────────┼──────────┤
+│"Apache Camel"                │60        │
+├──────────────────────────────┼──────────┤
+│"Apache Hadoop"               │116       │
+├──────────────────────────────┼──────────┤
+│"Apache OpenJPA"              │38        │
+├──────────────────────────────┼──────────┤
+│"Apache Karaf"                │14        │
+├──────────────────────────────┼──────────┤
+│"Apache Whirr"                │13        │
+├──────────────────────────────┼──────────┤
+│"Apache Commons HTTP Client"  │10        │
+├──────────────────────────────┼──────────┤
+│"Apache Axiom"                │43        │
+├──────────────────────────────┼──────────┤
+│"Apache Axis"                 │38        │
+├──────────────────────────────┼──────────┤
+│"Apache Synapse"              │42        │
+├──────────────────────────────┼──────────┤
+
+#8 - Liste todos os utilizadores que participaram nos mesmo projetos do que o utilizador "atm" (id).  Mostre os atributos: nome de "atm", nome utilizador 2, nome do projeto.
+
+match(u1:Utilizador{svn_id:"atm"})-[:WORKS_ON]->(p:Projeto)<-[:WORKS_ON]-(u2:Utilizador)
+return u1.real_name as atm_name, u2.real_name as utilizador_2, p.name as project
+
+╒════════════════╤═════════════════════════╤═══════════════╕
+│"atm_name"      │"utilizador_2"           │"project"      │
+╞════════════════╪═════════════════════════╪═══════════════╡
+│"Aaron T. Myers"│"Harsh J"                │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Dhruba Borthakur"       │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Jonathan Eagles"        │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Jonathan Eagles"        │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Konstantin Boudnik"     │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Tsz Wo (Nicholas) Sze"  │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Kihwal Lee"             │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Dhruba Borthakur"       │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Sanjay Radia"           │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Sharad Agarwal"         │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Koji Noguchi"           │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Jakob Homan"            │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Boris Shkolnik"         │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Amar Ramesh Kamat"      │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Tanping Wang"           │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Jakob Homan"            │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+
+#9 - Liste todos os utilizadores que participaram com a role "Committer" em projetos em que o utilizador "atm" (id1) participou com a role "PMC".
+
+match(u1:Utilizador{svn_id:"atm"})-[:WORKS_ON{role:"PMC"}]->(p:Projeto)<-[:WORKS_ON{role:"Committer"}]-(u2:Utilizador)
+return u1.real_name as atm_name, u2.real_name as utilizador_2, p.name as project
+
+╒════════════════╤═════════════════════════╤═══════════════╕
+│"atm_name"      │"utilizador_2"           │"project"      │
+╞════════════════╪═════════════════════════╪═══════════════╡
+│"Aaron T. Myers"│"Harsh J"                │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Dhruba Borthakur"       │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Jonathan Eagles"        │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Konstantin Boudnik"     │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Dhruba Borthakur"       │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Sanjay Radia"           │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Koji Noguchi"           │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Boris Shkolnik"         │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Amar Ramesh Kamat"      │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Tanping Wang"           │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Jakob Homan"            │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Raghu Angadi"           │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Zhijie Shen"            │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Vinod Kumar Vavilapalli"│"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Karthik Kambatla"       │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Sharad Agarwal"         │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
+│"Aaron T. Myers"│"Jason Lowe"             │"Apache Hadoop"│
+├────────────────┼─────────────────────────┼───────────────┤
