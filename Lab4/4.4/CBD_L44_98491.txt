@@ -1,0 +1,31 @@
+// NMEC: 98491
+
+a) Projeto Maven na pasta neo4j-driver
+
+b) 
+TEMA: Estatísticas os jogos da Premier League na época 20/21 - https://www.kaggle.com/rajatrc1705/english-premier-league202021
+
+Name,Club,Nationality,Position,Age,Matches,Starts,Mins,Goals,Assists,Passes_Attempted,Perc_Passes_Completed,Penalty_Goals,Penalty_Attempted,xG,xA,Yellow_Cards,Red_Cards
+
+ENTIDADES:
+
+Player -> Name, Age, Matches, Starts, Goals, Assists, Passes_Attempted, Perc_Passes_Completed,Penalty_Goals,xG, xA, Yellow_Cards, Red_Cards
+Club -> Club
+Nationality -> Nationality
+Position -> Position
+
+
+Relacao:
+Player  - PLAYS_IN -> Club
+Player - FROM -> Nacionality
+Player - ROLE -> Position
+
+
+LOAD CSV WITH HEADERS FROM 'file:///EPL_20_21.csv' AS row
+MERGE (p:Player {Name: row.Name, Age: row.Age, Matches: row.Matches, Starts: row.Starts, Goals: row. Goals, Assists: row.Assists, Passes_Attempted: row.Passes_Attempted, Perc_Passes_Completed: row.Perc_Passes_Completed, Penalty_Goals: row.Penalty_Goals, xG: row.xG, xA: row.xA, Yellow_Cards: row.Yellow_Cards, Red_Cards: row.Red_Cards})
+MERGE (c:Club {name: row.Club})
+MERGE (n:Country {nacionality: row.Nationality})
+MERGE (q:Position {name: row.Position})
+MERGE (p)-[:PLAYS_IN]->(c)
+MERGE (p)-[:FROM]->(n)
+MERGE (p)-[:ROLE]->(q);

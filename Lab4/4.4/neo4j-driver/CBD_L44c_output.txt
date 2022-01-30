@@ -1,0 +1,86 @@
+1 - Listar todos os jogadores que jogam no Manchester United
+Record<{nome: "Harry Maguire", idade: "27", jogos: "34", golos: "2"}>
+Record<{nome: "Eric Bailly", idade: "26", jogos: "12", golos: "0"}>
+Record<{nome: "Anthony Elanga", idade: "18", jogos: "2", golos: "1"}>
+Record<{nome: "Paul Pogba", idade: "27", jogos: "26", golos: "3"}>
+Record<{nome: "Nemanja Matić", idade: "31", jogos: "20", golos: "0"}>
+Record<{nome: "Timothy Fosu-Mensah", idade: "22", jogos: "1", golos: "0"}>
+Record<{nome: "Juan Mata", idade: "32", jogos: "9", golos: "1"}>
+Record<{nome: "Alex Telles", idade: "27", jogos: "9", golos: "0"}>
+Record<{nome: "Scott McTominay", idade: "23", jogos: "32", golos: "4"}>
+Record<{nome: "Victor Lindelöf", idade: "26", jogos: "29", golos: "1"}>
+Record<{nome: "William Thomas Fish", idade: "17", jogos: "1", golos: "0"}>
+Record<{nome: "Bruno Fernandes", idade: "25", jogos: "37", golos: "18"}>
+Record<{nome: "Luke Shaw", idade: "25", jogos: "32", golos: "1"}>
+Record<{nome: "David de Gea", idade: "29", jogos: "26", golos: "0"}>
+Record<{nome: "Marcus Rashford", idade: "22", jogos: "37", golos: "11"}>
+Record<{nome: "Mason Greenwood", idade: "18", jogos: "31", golos: "7"}>
+Record<{nome: "Daniel James", idade: "22", jogos: "15", golos: "3"}>
+Record<{nome: "Dean Henderson", idade: "23", jogos: "13", golos: "0"}>
+Record<{nome: "Brandon Williams", idade: "19", jogos: "4", golos: "0"}>
+Record<{nome: "Odion Ighalo", idade: "31", jogos: "1", golos: "0"}>
+Record<{nome: "Aaron Wan-Bissaka", idade: "22", jogos: "34", golos: "2"}>
+Record<{nome: "Fred", idade: "27", jogos: "30", golos: "1"}>
+Record<{nome: "Axel Tuanzebe", idade: "22", jogos: "9", golos: "0"}>
+Record<{nome: "Hannibal Mejbri", idade: "17", jogos: "1", golos: "0"}>
+Record<{nome: "Anthony Martial", idade: "24", jogos: "22", golos: "4"}>
+Record<{nome: "Shola Shoretire", idade: "16", jogos: "2", golos: "0"}>
+Record<{nome: "Edinson Cavani", idade: "33", jogos: "26", golos: "10"}>
+Record<{nome: "Amad Diallo", idade: "18", jogos: "3", golos: "0"}>
+Record<{nome: "Donny van de Beek", idade: "23", jogos: "19", golos: "1"}>
+
+2 - Conte o total de golos que o Chelsea marcou
+Record<{total_de_golos: 56}>
+
+3 - Liste o jogador com mais golos por clube
+Record<{name: "Alex Telles", age: "27"}>
+
+4 - Liste o jogador espanhol com mais assitências
+Record<{nome: "Rodrigo", golos: "7"}>
+Record<{nome: "Javier Manquillo", golos: "0"}>
+Record<{nome: "Sergio Reguilón", golos: "0"}>
+Record<{nome: "Eric García", golos: "0"}>
+Record<{nome: "Kepa Arrizabalaga", golos: "0"}>
+Record<{nome: "Pablo Fornals", golos: "5"}>
+Record<{nome: "Adrián", golos: "0"}>
+Record<{nome: "Ayoze Pérez", golos: "2"}>
+Record<{nome: "Ferrán Torres", golos: "7"}>
+Record<{nome: "Rodri", golos: "2"}>
+Record<{nome: "David de Gea", golos: "0"}>
+Record<{nome: "Jonny Castro", golos: "0"}>
+Record<{nome: "Dani Ceballos", golos: "0"}>
+Record<{nome: "Oriol Romeu", golos: "1"}>
+Record<{nome: "Pablo Hernández", golos: "0"}>
+Record<{nome: "Marcos Alonso", golos: "2"}>
+Record<{nome: "Diego Llorente", golos: "1"}>
+Record<{nome: "Juan Mata", golos: "1"}>
+Record<{nome: "Héctor Bellerín", golos: "1"}>
+Record<{nome: "Pablo Marí", golos: "0"}>
+Record<{nome: "Adama Traoré", golos: "2"}>
+Record<{nome: "Robert Sánchez", golos: "0"}>
+Record<{nome: "Kiko Casilla", golos: "0"}>
+Record<{nome: "Vicente Guaita", golos: "0"}>
+Record<{nome: "César Azpilicueta", golos: "1"}>
+Record<{nome: "Thiago Alcántara", golos: "1"}>
+
+5 - Liste o jogador com menos cartões amarelos
+Record<{name: "Alex Telles", age: "27"}>
+
+6 - Liste o jogador com mais passes efetuados com sucesso
+Record<{name: "Alex Telles", age: "27"}>
+
+7 - 
+Record<{name: "Alex Telles", age: "27"}>
+
+8 - 
+Record<{name: "Alex Telles", age: "27"}>
+
+9 - 
+Record<{name: "Alex Telles", age: "27"}>
+
+10 - 
+Record<{name: "Alex Telles", age: "27"}>
+
+11 - 
+Record<{name: "Alex Telles", age: "27"}>
+
