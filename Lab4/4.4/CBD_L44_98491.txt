@@ -16,7 +16,7 @@ Position -> Position
 
 
 Relacao:
-Player  - PLAYS_IN -> Club
+Player - PLAYS_IN -> Club
 Player - FROM -> Nacionality
 Player - ROLE -> Position
 

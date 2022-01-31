@@ -33,54 +33,124 @@ Record<{nome: "Donny van de Beek", idade: "23", jogos: "19", golos: "1"}>
 Record<{total_de_golos: 56}>
 
 3 - Liste o jogador com mais golos por clube
-Record<{name: "Alex Telles", age: "27"}>
+Record<{clube: "Chelsea", golos: 7, jogador: "Jorginho"}>
+Record<{clube: "Manchester City", golos: 7, jogador: "Ferrán Torres"}>
+Record<{clube: "Manchester United", golos: 7, jogador: "Mason Greenwood"}>
+Record<{clube: "Leeds United", golos: 7, jogador: "Rodrigo"}>
+Record<{clube: "Everton", golos: 7, jogador: "Richarlison"}>
+Record<{clube: "Aston Villa", golos: 7, jogador: "Bertrand Traoré"}>
+Record<{clube: "Manchester City", golos: 13, jogador: "İlkay Gündoğan"}>
+Record<{clube: "Arsenal", golos: 13, jogador: "Alexandre Lacazette"}>
+Record<{clube: "Manchester United", golos: 18, jogador: "Bruno Fernandes"}>
+Record<{clube: "Liverpool FC", golos: 22, jogador: "Mohamed Salah"}>
+Record<{clube: "Leicester City", golos: 15, jogador: "Jamie Vardy"}>
+Record<{clube: "Manchester City", golos: 10, jogador: "Raheem Sterling"}>
+Record<{clube: "Manchester United", golos: 10, jogador: "Edinson Cavani"}>
+Record<{clube: "West Ham United", golos: 10, jogador: "Tomáš Souček"}>
+Record<{clube: "West Ham United", golos: 10, jogador: "Michail Antonio"}>
+Record<{clube: "Arsenal", golos: 10, jogador: "Pierre-Emerick Aubameyang"}>
+Record<{clube: "Arsenal", golos: 10, jogador: "Nicolas Pépé"}>
+Record<{clube: "Aston Villa", golos: 10, jogador: "Anwar El Ghazi"}>
+Record<{clube: "Crystal Palace", golos: 10, jogador: "Christian Benteke"}>
+Record<{clube: "Tottenham Hotspur", golos: 23, jogador: "Harry Kane"}>
+Record<{clube: "Manchester City", golos: 13, jogador: "İlkay Gündoğan"}>
+Record<{clube: "Arsenal", golos: 13, jogador: "Alexandre Lacazette"}>
+Record<{clube: "Tottenham Hotspur", golos: 17, jogador: "Son Heung-min"}>
+Record<{clube: "Leeds United", golos: 17, jogador: "Patrick Bamford"}>
+Record<{clube: "Everton", golos: 16, jogador: "Dominic Calvert-Lewin"}>
+Record<{clube: "Aston Villa", golos: 14, jogador: "Ollie Watkins"}>
+Record<{clube: "Leicester City", golos: 12, jogador: "Kelechi Iheanacho"}>
+Record<{clube: "Newcastle United", golos: 12, jogador: "Callum Wilson"}>
+Record<{clube: "Southampton", golos: 12, jogador: "Danny Ings"}>
+Record<{clube: "Burnley", golos: 12, jogador: "Chris Wood"}>
+Record<{clube: "Chelsea", golos: 5, jogador: "Kurt Zouma"}>
+Record<{clube: "West Ham United", golos: 5, jogador: "Pablo Fornals"}>
+Record<{clube: "Arsenal", golos: 5, jogador: "Bukayo Saka"}>
+Record<{clube: "Wolverhampton Wanderers", golos: 5, jogador: "Rúben Neves"}>
+Record<{clube: "Wolverhampton Wanderers", golos: 5, jogador: "Pedro Neto"}>
+Record<{clube: "Brighton", golos: 5, jogador: "Lewis Dunk"}>
+Record<{clube: "Brighton", golos: 5, jogador: "Leandro Trossard"}>
+Record<{clube: "Fulham", golos: 5, jogador: "Bobby Reid"}>
+Record<{clube: "West Bromwich Albion", golos: 5, jogador: "Callum Robinson"}>
+Record<{clube: "Manchester United", golos: 11, jogador: "Marcus Rashford"}>
+Record<{clube: "Liverpool FC", golos: 11, jogador: "Sadio Mané"}>
+Record<{clube: "Tottenham Hotspur", golos: 11, jogador: "Gareth Bale"}>
+Record<{clube: "Crystal Palace", golos: 11, jogador: "Wilfried Zaha"}>
+Record<{clube: "West Bromwich Albion", golos: 11, jogador: "Matheus Pereira"}>
+Record<{clube: "Leicester City", golos: 12, jogador: "Kelechi Iheanacho"}>
+Record<{clube: "Newcastle United", golos: 12, jogador: "Callum Wilson"}>
+Record<{clube: "Southampton", golos: 12, jogador: "Danny Ings"}>
+Record<{clube: "Burnley", golos: 12, jogador: "Chris Wood"}>
+Record<{clube: "Leicester City", golos: 8, jogador: "James Maddison"}>
+Record<{clube: "West Ham United", golos: 8, jogador: "Jarrod Bowen"}>
+Record<{clube: "Leeds United", golos: 8, jogador: "Jack Harrison"}>
+Record<{clube: "Leeds United", golos: 8, jogador: "Stuart Dallas"}>
+Record<{clube: "Newcastle United", golos: 8, jogador: "Joe Willock"}>
+Record<{clube: "Southampton", golos: 8, jogador: "James Ward-Prowse"}>
+Record<{clube: "Brighton", golos: 8, jogador: "Neal Maupay"}>
+Record<{clube: "Sheffield United", golos: 8, jogador: "David McGoldrick"}>
+Record<{clube: "Leicester City", golos: 12, jogador: "Kelechi Iheanacho"}>
+Record<{clube: "Newcastle United", golos: 12, jogador: "Callum Wilson"}>
+Record<{clube: "Southampton", golos: 12, jogador: "Danny Ings"}>
+Record<{clube: "Burnley", golos: 12, jogador: "Chris Wood"}>
+Record<{clube: "Chelsea", golos: 5, jogador: "Kurt Zouma"}>
+Record<{clube: "West Ham United", golos: 5, jogador: "Pablo Fornals"}>
+Record<{clube: "Arsenal", golos: 5, jogador: "Bukayo Saka"}>
+Record<{clube: "Wolverhampton Wanderers", golos: 5, jogador: "Rúben Neves"}>
+Record<{clube: "Wolverhampton Wanderers", golos: 5, jogador: "Pedro Neto"}>
+Record<{clube: "Brighton", golos: 5, jogador: "Lewis Dunk"}>
+Record<{clube: "Brighton", golos: 5, jogador: "Leandro Trossard"}>
+Record<{clube: "Fulham", golos: 5, jogador: "Bobby Reid"}>
+Record<{clube: "West Bromwich Albion", golos: 5, jogador: "Callum Robinson"}>
+Record<{clube: "Manchester United", golos: 11, jogador: "Marcus Rashford"}>
+Record<{clube: "Liverpool FC", golos: 11, jogador: "Sadio Mané"}>
+Record<{clube: "Tottenham Hotspur", golos: 11, jogador: "Gareth Bale"}>
+Record<{clube: "Crystal Palace", golos: 11, jogador: "Wilfried Zaha"}>
+Record<{clube: "West Bromwich Albion", golos: 11, jogador: "Matheus Pereira"}>
+Record<{clube: "Leicester City", golos: 8, jogador: "James Maddison"}>
+Record<{clube: "West Ham United", golos: 8, jogador: "Jarrod Bowen"}>
+Record<{clube: "Leeds United", golos: 8, jogador: "Jack Harrison"}>
+Record<{clube: "Leeds United", golos: 8, jogador: "Stuart Dallas"}>
+Record<{clube: "Newcastle United", golos: 8, jogador: "Joe Willock"}>
+Record<{clube: "Southampton", golos: 8, jogador: "James Ward-Prowse"}>
+Record<{clube: "Brighton", golos: 8, jogador: "Neal Maupay"}>
+Record<{clube: "Sheffield United", golos: 8, jogador: "David McGoldrick"}>
 
 4 - Liste o jogador espanhol com mais assitências
-Record<{nome: "Rodrigo", golos: "7"}>
-Record<{nome: "Javier Manquillo", golos: "0"}>
-Record<{nome: "Sergio Reguilón", golos: "0"}>
-Record<{nome: "Eric García", golos: "0"}>
-Record<{nome: "Kepa Arrizabalaga", golos: "0"}>
-Record<{nome: "Pablo Fornals", golos: "5"}>
-Record<{nome: "Adrián", golos: "0"}>
-Record<{nome: "Ayoze Pérez", golos: "2"}>
-Record<{nome: "Ferrán Torres", golos: "7"}>
-Record<{nome: "Rodri", golos: "2"}>
-Record<{nome: "David de Gea", golos: "0"}>
-Record<{nome: "Jonny Castro", golos: "0"}>
-Record<{nome: "Dani Ceballos", golos: "0"}>
-Record<{nome: "Oriol Romeu", golos: "1"}>
-Record<{nome: "Pablo Hernández", golos: "0"}>
-Record<{nome: "Marcos Alonso", golos: "2"}>
-Record<{nome: "Diego Llorente", golos: "1"}>
-Record<{nome: "Juan Mata", golos: "1"}>
-Record<{nome: "Héctor Bellerín", golos: "1"}>
-Record<{nome: "Pablo Marí", golos: "0"}>
-Record<{nome: "Adama Traoré", golos: "2"}>
-Record<{nome: "Robert Sánchez", golos: "0"}>
-Record<{nome: "Kiko Casilla", golos: "0"}>
-Record<{nome: "Vicente Guaita", golos: "0"}>
-Record<{nome: "César Azpilicueta", golos: "1"}>
-Record<{nome: "Thiago Alcántara", golos: "1"}>
+Record<{nome: "Pablo Fornals", assistencias: 4}>
 
 5 - Liste o jogador com menos cartões amarelos
-Record<{name: "Alex Telles", age: "27"}>
+Record<{nome: "Antonio Rüdiger", amarelos_jog: 0}>
 
 6 - Liste o jogador com mais passes efetuados com sucesso
-Record<{name: "Alex Telles", age: "27"}>
+Record<{nome: "Odion Ighalo", perc_passes: 100}>
 
-7 - 
-Record<{name: "Alex Telles", age: "27"}>
+7 - Liste os jogadores do Crystal Palace que não tem amarelos
+Record<{nome: "Jack Butland", jogos: "1", golos: "0", amarelos_jog: 0}>
+Record<{nome: "Jean-Philippe Mateta", jogos: "7", golos: "1", amarelos_jog: 0}>
+Record<{nome: "Michy Batshuayi", jogos: "18", golos: "2", amarelos_jog: 0}>
+Record<{nome: "Andros Townsend", jogos: "34", golos: "1", amarelos_jog: 0}>
+Record<{nome: "Martin Kelly", jogos: "1", golos: "0", amarelos_jog: 0}>
+Record<{nome: "Mamadou Sakho", jogos: "4", golos: "0", amarelos_jog: 0}>
 
-8 - 
-Record<{name: "Alex Telles", age: "27"}>
+8 - Liste todos os defesas, que tenham mais de 2 golos marcados
+Record<{j.Name: "John Stones", r.name: "DF"}>
+Record<{j.Name: "Craig Dawson", r.name: "DF"}>
+Record<{j.Name: "Kurt Zouma", r.name: "DF"}>
+Record<{j.Name: "Jannik Vestergaard", r.name: "DF"}>
+Record<{j.Name: "Angelo Ogbonna", r.name: "DF"}>
+Record<{j.Name: "Michael Keane", r.name: "DF"}>
+Record<{j.Name: "Romain Saïss", r.name: "DF"}>
+Record<{j.Name: "Lewis Dunk", r.name: "DF"}>
+Record<{j.Name: "Ben Chilwell", r.name: "DF"}>
+Record<{j.Name: "Kyle Bartley", r.name: "DF"}>
 
-9 - 
-Record<{name: "Alex Telles", age: "27"}>
+9 - Liste os jogadores Portugueses com mais de 10 golos e mais de 10 assistencias
+Record<{nome: "Bruno Fernandes", nacionalidade: "POR", golos: 18, assistencias: 12}>
 
-10 - 
-Record<{name: "Alex Telles", age: "27"}>
+10 - Liste o clube com mais jogadores Portugueses
+Record<{clube: "Wolverhampton Wanderers", portugueses_clube: 9}>
 
-11 - 
-Record<{name: "Alex Telles", age: "27"}>
+11 - Qual o jogador com o melho ratio Assistencias/Golos (desde que tenham marcado mais que 1 golo e feito mais que uma assistencia)
+Record<{p.Name: "Bernardo Silva", assistencias: 6, golos: 2, ratio: 3}>
 
