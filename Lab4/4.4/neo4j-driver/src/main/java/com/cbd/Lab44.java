@@ -62,6 +62,7 @@ public class Lab44 {
                     out.println();
                     i++;
                 }
+                greeter.close();
             } catch (FileNotFoundException e) {
                 System.err.println("ERROR: " + e.getMessage());
                 System.exit(0);

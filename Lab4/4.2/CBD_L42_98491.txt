@@ -440,7 +440,7 @@ return avg(date_diff) as avg_age
 
 #7 - Encontre os 10 filmes com o elenco mais velho no momento do lançamento do filme. Apresente o filme e a idade média arredondada a 2 casas decimais, por ordem decrescente.
 match (actor)-[:ACTED_IN]->(movie)
-with movie, avg( movie.released - actor.born) as date_diff
+with movie, (avg( movie.released - actor.born) * 100) / 100 as date_diff
 return movie.title, date_diff
 order by date_diff desc
 limit 10
@@ -733,21 +733,92 @@ limit 10
 │"Keanu Reeves"│"Orlando Jones"     │2.0    │
 └──────────────┴────────────────────┴───────┘
 
-#17 - 
+#17 - Quantos filmes que foram DIRECTED por Andy Wachowski.
+match(p:Person{name:"Andy Wachowski"})-[:DIRECTED]->(m:Movie)
+with p.name as nome, count(p) as n_filmes
+return nome, n_filmes
 
+╒════════════════╤══════════╕
+│"nome"          │"n_filmes"│
+╞════════════════╪══════════╡
+│"Andy Wachowski"│10        │
+└────────────────┴──────────┘
 
+#18 - Liste todas as pessoas que DIRECTED o mesmo filme, sendo que a primeira tenha mais de 56 anos e menos de 57.
+match(p1:Person)-[:DIRECTED]->(m:Movie)<-[:DIRECTED]-(p2:Person)
+with p1, p2, m, 2022 - p1.born as idade_p1, 2022 - p2.born as idade_p2
+where idade_p1 > 56 and idade_p2 < 57
+return m.title as filme, p1.name as diretor_1, p2.name as diretor_2, idade_p1 as idade_dir_1, idade_p2 as idade_dir_2
 
+╒════════════════════════╤════════════════╤═════════════════╤═════════════╤═════════════╕
+│"filme"                 │"diretor_1"     │"diretor_2"      │"idade_dir_1"│"idade_dir_2"│
+╞════════════════════════╪════════════════╪═════════════════╪═════════════╪═════════════╡
+│"The Matrix"            │"Lana Wachowski"│"Andy Wachowski" │57           │55           │
+├────────────────────────┼────────────────┼─────────────────┼─────────────┼─────────────┤
+│"The Matrix Reloaded"   │"Lana Wachowski"│"Andy Wachowski" │57           │55           │
+├────────────────────────┼────────────────┼─────────────────┼─────────────┼─────────────┤
+│"The Matrix Revolutions"│"Lana Wachowski"│"Andy Wachowski" │57           │55           │
+├────────────────────────┼────────────────┼─────────────────┼─────────────┼─────────────┤
+│"Cloud Atlas"           │"Tom Tykwer"    │"Andy Wachowski" │57           │55           │
+├────────────────────────┼────────────────┼─────────────────┼─────────────┼─────────────┤
+│"Cloud Atlas"           │"Lana Wachowski"│"Andy Wachowski" │57           │55           │
+├────────────────────────┼────────────────┼─────────────────┼─────────────┼─────────────┤
+│"Speed Racer"           │"Lana Wachowski"│"Andy Wachowski" │57           │55           │
+├────────────────────────┼────────────────┼─────────────────┼─────────────┼─────────────┤
 
+#19 - Liste todos os actores e escritores que participaram no mesmo filme, sendo que nasceram pós ano de 1965.
+match (actor:Person)-[:ACTED_IN]->(movie:Movie)<-[:WROTE]-(writer:Person)
+with actor, movie, writer
+where actor.born > 1965 and writer.born > 1965
+return distinct actor.name as nome_actor, actor.born as ano_nascimento_atoor,writer.name as nome_escritor, writer.born as ano_nacimento_escritor, movie.title as filme
 
-#18
+╒═════════════════╤══════════════════════╤═════════════════╤════════════════════════╤════════════════╕
+│"nome_actor"     │"ano_nascimento_atoor"│"nome_escritor"  │"ano_nacimento_escritor"│"filme"         │
+╞═════════════════╪══════════════════════╪═════════════════╪════════════════════════╪════════════════╡
+│"Ben Miles"      │1967                  │"Andy Wachowski" │1967                    │"V for Vendetta"│
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Natalie Portman"│1981                  │"Andy Wachowski" │1967                    │"V for Vendetta"│
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Ben Miles"      │1967                  │"Andy Wachowski" │1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Christina Ricci"│1980                  │"Andy Wachowski" │1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Matthew Fox"    │1966                  │"Andy Wachowski" │1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Rain"           │1982                  │"Andy Wachowski" │1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Emile Hirsch"   │1985                  │"Andy Wachowski" │1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Halle Berry"    │1966                  │"David Mitchell" │1969                    │"Cloud Atlas"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Ben Miles"      │1967                  │"Lilly Wachowski"│1967                    │"V for Vendetta"│
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Natalie Portman"│1981                  │"Lilly Wachowski"│1967                    │"V for Vendetta"│
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Christina Ricci"│1980                  │"Lilly Wachowski"│1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Emile Hirsch"   │1985                  │"Lilly Wachowski"│1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Matthew Fox"    │1966                  │"Lilly Wachowski"│1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Rain"           │1982                  │"Lilly Wachowski"│1967                    │"Speed Racer"   │
+├─────────────────┼──────────────────────┼─────────────────┼────────────────────────┼────────────────┤
+│"Ben Miles"      │1967                  │"Lilly Wachowski"│1967                    │"Speed Racer"   │
+└─────────────────┴──────────────────────┴─────────────────┴────────────────────────┴────────────────┘
 
+#20 - Liste os 3 atores com mais filmes realizados 
+match(actor:Person)-[r:ACTED_IN]->(movie:Movie)
+with actor.name as nome_actor, count(actor.name) as filmes_realizados
+return nome_actor, filmes_realizados
+order by filmes_realizados desc
+limit 3
 
-
-
-#19
-
-
-
-
-
-#20
+╒══════════════╤═══════════════════╕
+│"nome_actor"  │"filmes_realizados"│
+╞══════════════╪═══════════════════╡
+│"Tom Hanks"   │36                 │
+├──────────────┼───────────────────┤
+│"Keanu Reeves"│21                 │
+├──────────────┼───────────────────┤
+│"Hugo Weaving"│15                 │
+└──────────────┴───────────────────┘
