@@ -20,7 +20,6 @@ Player - PLAYS_IN -> Club
 Player - FROM -> Nacionality
 Player - ROLE -> Position
 
-
 LOAD CSV WITH HEADERS FROM 'file:///EPL_20_21.csv' AS row
 MERGE (p:Player {Name: row.Name, Age: row.Age, Matches: row.Matches, Starts: row.Starts, Goals: row. Goals, Assists: row.Assists, Passes_Attempted: row.Passes_Attempted, Perc_Passes_Completed: row.Perc_Passes_Completed, Penalty_Goals: row.Penalty_Goals, xG: row.xG, xA: row.xA, Yellow_Cards: row.Yellow_Cards, Red_Cards: row.Red_Cards})
 MERGE (c:Club {name: row.Club})

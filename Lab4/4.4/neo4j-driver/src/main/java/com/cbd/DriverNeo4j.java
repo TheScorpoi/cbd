@@ -16,7 +16,7 @@ public class DriverNeo4j implements AutoCloseable {
         driver = GraphDatabase.driver(uri, AuthTokens.basic(user, password));
     }
 
-    public List<Record> printGreeting(String query) {
+    public List<Record> runQuery(String query) {
         // https://neo4j.com/docs/api/java-driver/current/org/neo4j/driver/Result.html
         try (Session session = driver.session()) {
             List<Record> greeting = session.writeTransaction((tx -> {
